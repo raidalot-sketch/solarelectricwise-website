@@ -146,8 +146,7 @@ h3 { font-size: 1.15rem; margin: 0 0 0.5rem; }
   display: none;
   z-index: 50;
 }
-.main-nav li.has-dropdown:hover .dropdown,
-.main-nav li.has-dropdown.open .dropdown { display: block; }
+.main-nav li.has-dropdown:hover .dropdown { display: block; }
 .main-nav .dropdown li { width: 100%; }
 .main-nav .dropdown a {
   display: block;
