@@ -1,0 +1,18 @@
+# Solar Electric Wise
+
+> Solar PV installation company based in Noordhoek, Cape Town, South Africa. Installing residential, commercial and off-grid solar systems since 2015.
+
+Solar Electric Wise is a licensed, registered EPC (Engineering, Procurement and Construction) company with nearly 30 years of combined electrical experience and 10 years in energy management. We audit electrical consumption, design right-sized systems using Tier 1 solar panels, install them, and provide ongoing annual maintenance. We serve Noordhoek, Fish Hoek, Constantia, Cape Town and the greater Western Cape.
+
+Contact: +27 83 571 9191 / +27 83 454 3577, info@solarelectricwise.co.za, 1 Heldray Rd, Noordhoek, 7979, South Africa. Hours: Mon-Fri 08:00-17:00.
+
+## Pages
+
+- [Home](https://www.solarelectricwise.co.za/): Company overview and service summary.
+- [About Us](https://www.solarelectricwise.co.za/about.html): Company history, credentials and experience.
+- [Services](https://www.solarelectricwise.co.za/services.html): Overview of all solar services offered.
+- [Residential Solar](https://www.solarelectricwise.co.za/residential-solar.html): Grid-tied and grid-feed solar for homes, including load-shedding battery backup, in Noordhoek, Fish Hoek, Constantia, Cape Town and the Western Cape.
+- [Commercial Solar](https://www.solarelectricwise.co.za/commercial-solar.html): Solar for offices, retail, industrial sites and hospitality businesses (restaurants, guesthouses, cafes) in Cape Town and the Western Cape.
+- [Off-Grid Solar](https://www.solarelectricwise.co.za/off-grid-solar.html): Battery-backed off-grid systems for smallholdings, farms and rural properties across the Western Cape and Cape Peninsula.
+- [Gallery](https://www.solarelectricwise.co.za/gallery.html): Photos of completed installation projects.
+- [Contact](https://www.solarelectricwise.co.za/contact.html): Request a free quote or get in touch directly.
