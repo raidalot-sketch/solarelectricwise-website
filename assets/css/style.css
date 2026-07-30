@@ -104,6 +104,7 @@ h3 { font-size: 1.15rem; margin: 0 0 0.5rem; }
 .main-nav ul {
   list-style: none;
   display: flex;
+  align-items: center;
   gap: 1.25rem;
   margin: 0;
   padding: 0;
