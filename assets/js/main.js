@@ -9,6 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Services dropdown toggle (tap/click the caret; desktop also opens on hover via CSS)
+  document.querySelectorAll(".dropdown-toggle").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      var li = btn.closest(".has-dropdown");
+      var isOpen = li.classList.toggle("open");
+      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+  });
+
   // Gallery lightbox
   var lightbox = document.querySelector(".lightbox");
   if (lightbox) {
