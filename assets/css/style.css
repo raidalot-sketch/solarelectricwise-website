@@ -234,6 +234,14 @@ h3 { font-size: 1.15rem; margin: 0 0 0.5rem; }
 /* Card grid */
 .grid { display: grid; gap: 1.75rem; }
 .grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+.work-shot {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
 .grid-2 { grid-template-columns: repeat(2, 1fr); }
 @media (max-width: 860px) {
   .grid-3, .grid-2 { grid-template-columns: 1fr; }
