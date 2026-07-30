@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.solarelectricwise.co.za/sitemap.xml
