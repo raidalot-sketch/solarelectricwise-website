@@ -1,0 +1,45 @@
+DirectoryIndex index.html
+Options -Indexes
+SetEnv SOLAR_CONTACT_ENABLED 1
+ErrorDocument 404 /404.html
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^solarelectricwise\.co\.za$ [NC,OR]
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://www.solarelectricwise.co.za%{REQUEST_URI} [R=301,L,NE]
+RewriteRule ^home/?$ https://www.solarelectricwise.co.za/ [R=301,L,NC]
+# Preserve links to public media and browser assets from the original site.
+RewriteRule ^wp-content/(.*)$ /assets/vendor/wp-content/$1 [R=301,L,NE]
+RewriteRule ^wp-includes/(.*)$ /assets/vendor/wp-includes/$1 [R=301,L,NE]
+# Old numeric WordPress page links resolve to the same published page URLs.
+RewriteCond %{QUERY_STRING} ^(?:page_id|p)=7$
+RewriteRule ^$ /? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:page_id|p)=9$
+RewriteRule ^$ /about-us/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:page_id|p)=11$
+RewriteRule ^$ /contact-us/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:page_id|p)=13$
+RewriteRule ^$ /gallery/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:page_id|p)=201$
+RewriteRule ^$ /residential/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:page_id|p)=203$
+RewriteRule ^$ /commercial/? [R=301,L]
+RewriteCond %{QUERY_STRING} ^(?:page_id|p)=205$
+RewriteRule ^$ /off-grid/? [R=301,L]
+</IfModule>
+<IfModule mod_headers.c>
+<FilesMatch "\.(?:css|js|woff2?|ttf|eot|otf|jpe?g|png|gif|webp|svg|ico)$">
+Header set Cache-Control "public, max-age=86400"
+</FilesMatch>
+<FilesMatch "\.html$">
+Header set Cache-Control "public, max-age=0, s-maxage=3600, must-revalidate"
+</FilesMatch>
+<Files "contact.php">
+Header set Cache-Control "no-store"
+</Files>
+<Files "404.html">
+Header set X-Robots-Tag "noindex, follow"
+</Files>
+Header set X-Content-Type-Options "nosniff"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

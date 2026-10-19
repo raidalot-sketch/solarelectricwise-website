@@ -1,0 +1,23 @@
+/* Focused spacing and readable, responsive semantic headings. */
+.seo-primary-heading { margin: 0; }
+.solar-service-links { display:flex; flex-wrap:wrap; justify-content:center; gap:12px 28px; padding:18px 20px; background:#00233c; }
+.solar-service-links a { color:#fff; font-size:14px; text-decoration:underline; }
+body[data-page="off-grid"] .elementor-element-f9aac3e { padding:56px 0 40px !important; }
+body[data-page="off-grid"] .elementor-element-e865c91 { padding:40px 0 56px !important; }
+body[data-page="off-grid"] .elementor-element-5c3dd76 { padding-bottom:24px !important; }
+@media (max-width:1024px) and (min-width:768px) {
+ body[data-page="off-grid"] .elementor-element-f9aac3e { padding:40px 20px 24px !important; }
+ body[data-page="off-grid"] .elementor-element-e865c91 { padding:32px 20px 40px !important; }
+}
+@media (max-width:767px) {
+ body[data-page="off-grid"] .elementor-element-f44fff0 { padding:28px 0 !important; }
+ body[data-page="off-grid"] .elementor-element-c83a803 { padding:24px 15px 32px !important; }
+ body[data-page="off-grid"] .elementor-element-5c2d8fc { padding:8px 0 20px !important; }
+}
+
+/* Contact cards share a height when arranged in columns; mobile remains content-sized. */
+@media(min-width:768px){
+ body[data-page="contact-us"] :is(.elementor-element-2cfe2fbd,.elementor-element-144c0856,.elementor-element-59344c7c,.elementor-element-55f1ded,.elementor-element-b614772,.elementor-element-82e7574){align-self:stretch; height:100%;}
+ body[data-page="contact-us"] :is(.elementor-element-2cfe2fbd,.elementor-element-144c0856,.elementor-element-59344c7c,.elementor-element-55f1ded,.elementor-element-b614772,.elementor-element-82e7574) > .elementor-widget-container,
+ body[data-page="contact-us"] :is(.elementor-element-2cfe2fbd,.elementor-element-144c0856,.elementor-element-59344c7c,.elementor-element-55f1ded,.elementor-element-b614772,.elementor-element-82e7574) .bdt-ep-advanced-icon-box {height:100%;}
+}
