@@ -8,6 +8,24 @@ function respond(int $status, bool $success, string $message): never {
     echo json_encode(['success' => $success, 'message' => $message]);
     exit;
 }
+// Official Cloudflare IP ranges verified on 19 October 2026.
+function solarClientIp(array $server): string {
+    $peer = (string)($server['REMOTE_ADDR'] ?? '');
+    $forwarded = (string)($server['HTTP_CF_CONNECTING_IP'] ?? '');
+    if (!filter_var($forwarded, FILTER_VALIDATE_IP)) return $peer ?: 'unknown';
+    $packedPeer = @inet_pton($peer);
+    if ($packedPeer === false) return 'unknown';
+    foreach (['173.245.48.0/20', '103.21.244.0/22', '103.22.200.0/22', '103.31.4.0/22', '141.101.64.0/18', '108.162.192.0/18', '190.93.240.0/20', '188.114.96.0/20', '197.234.240.0/22', '198.41.128.0/17', '162.158.0.0/15', '104.16.0.0/13', '104.24.0.0/14', '172.64.0.0/13', '131.0.72.0/22', '2400:cb00::/32', '2606:4700::/32', '2803:f800::/32', '2405:b500::/32', '2405:8100::/32', '2a06:98c0::/29', '2c0f:f248::/32'] as $cidr) {
+        [$network, $bits] = explode('/', $cidr);
+        $packedNetwork = inet_pton($network);
+        if (strlen($packedPeer) !== strlen($packedNetwork)) continue;
+        $bytes = intdiv((int)$bits, 8); $remaining = (int)$bits % 8;
+        if (substr($packedPeer, 0, $bytes) !== substr($packedNetwork, 0, $bytes)) continue;
+        if ($remaining && ((ord($packedPeer[$bytes]) ^ ord($packedNetwork[$bytes])) & (255 << (8 - $remaining)))) continue;
+        return $forwarded;
+    }
+    return $peer;
+}
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(405, false, 'Please use the contact form.');
 if (strlen((string)($_POST['website'] ?? '')) || strlen((string)($_POST['fax'] ?? ''))) respond(422, false, 'Please check the form and try again.');
 $fields = [];
@@ -24,7 +42,7 @@ if ($origin !== '' && !in_array(parse_url($origin, PHP_URL_HOST), ['www.solarele
 if (getenv('SOLAR_CONTACT_ENABLED') !== '1') respond(503, false, 'This is a preview. Please contact us using the phone or email details shown on this page.');
 $rateDir = sys_get_temp_dir() . '/solar-contact-' . getmyuid();
 if (!is_dir($rateDir) && !@mkdir($rateDir, 0700, true) && !is_dir($rateDir)) respond(503, false, 'Please contact us by phone or email.');
-$rateFile = $rateDir . '/' . hash('sha256', $_SERVER['REMOTE_ADDR'] ?? 'unknown') . '.json';
+$rateFile = $rateDir . '/' . hash('sha256', solarClientIp($_SERVER)) . '.json';
 $handle = @fopen($rateFile, 'c+');
 if ($handle === false || !flock($handle, LOCK_EX)) respond(503, false, 'Please try again later or contact us by phone.');
 @chmod($rateFile, 0600);

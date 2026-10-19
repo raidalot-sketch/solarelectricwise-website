@@ -6,1080 +6,9 @@
 <meta charset="utf-8"/>
 <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
 <!-- devices setting -->
-<meta content="initial-scale=1,user-scalable=no,width=device-width" name="viewport"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
 <!-- outputs by wp_head -->
 <title>About Our Solar Installation Team | SolarElectricWise</title>
-<style>
-        .pro-wccp:before {
-            content: "\f160";
-            top: 3px;
-        }
-        .pro-wccp:before{
-            color:#02CA03 !important
-        }
-        .pro-wccp {
-            transform: rotate(45deg);
-        }
-    </style>
-<script id="wccp_pro_disable_selection">
-
-var image_save_msg = 'You are not allowed to save images!';
-
-var no_menu_msg = 'Context menu disabled!';
-
-var smessage = "";
-
-
-"use strict";
-/* This because search property "includes" does not supported by IE*/
-if (!String.prototype.includes) {
-String.prototype.includes = function(search, start) {
-  if (typeof start !== 'number') {
-	start = 0;
-  }
-
-  if (start + search.length > this.length) {
-	return false;
-  } else {
-	return this.indexOf(search, start) !== -1;
-  }
-};
-}
-/*////////////////////////////////////*/
-let canCall = true;
-
-function call_disable_copy_WithDelay(e) {
-  if (canCall) {
-    canCall = false;
-    disable_copy(e);
-    setTimeout(() => {
-      canCall = true;
-    }, 1000);
-  }
-}
-
-function disable_copy(e)
-{
-	window.wccp_pro_iscontenteditable_flag = false;
-	
-	wccp_pro_log_to_console_if_allowed("function", "disable_copy");
-	
-	var e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement
-  	
-	var target = e.target || e.srcElement;
-
-	var elemtype = e.target.nodeName;
-	
-	elemtype = elemtype.toUpperCase();
-	
-	if (apply_class_exclusion(e) == "Yes") return true;
-
-	if(wccp_pro_iscontenteditable(e) == true) {return true;}
-	
-	if(is_content_editable_element(current_clicked_element) == true)
-	{
-		return true;
-	}
-	else
-	{
-		if (smessage !== "" && e.detail == 2)
-			show_wccp_pro_message(smessage);
-		
-		if (isSafari)
-		{
-			return true;
-		}
-		else
-		{
-			//wccp_pro_clear_any_selection();
-			
-			return false;
-		}
-	}
-	
-	/*disable context menu when shift + right click is pressed*/
-	var shiftPressed = 0;
-	
-	var evt = e?e:window.event;
-	
-	if (parseInt(navigator.appVersion)>3) {
-		
-		if (document.layers && navigator.appName=="Netscape")
-			
-			shiftPressed = (e.modifiers-0>3);
-			
-		else
-			
-			shiftPressed = e.shiftKey;
-			
-		if (shiftPressed) {
-			
-			if (smessage !== "") show_wccp_pro_message(smessage);
-			
-			var isFirefox = typeof InstallTrigger !== 'undefined';   /* Firefox 1.0+ */
-			
-			if (isFirefox) {
-			evt.cancelBubble = true;
-			if (evt.stopPropagation) evt.stopPropagation();
-			if (evt.preventDefault()) evt.preventDefault();
-			show_wccp_pro_message (smessage);
-			wccp_pro_clear_any_selection();
-			return false;
-			}
-			
-			wccp_pro_clear_any_selection();
-			return false;
-		}
-	}
-	
-	if(e.which === 2 ){
-	var clickedTag_a = (e==null) ? event.srcElement.tagName : e.target.tagName;
-	   show_wccp_pro_message(smessage);
-       wccp_pro_clear_any_selection(); return false;
-    }
-	var isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
-	var checker_IMG = 'checked';
-	if (elemtype == "IMG" && checker_IMG == 'checked' && e.detail == 2) {show_wccp_pro_message(alertMsg_IMG);wccp_pro_clear_any_selection();return false;}
-
-    //elemtype must be merged by elemtype checker on function disable_copy & disable_hot_keys
-	if (is_content_editable_element(elemtype) == false)
-	{
-		if (smessage !== "" && e.detail == 2)
-			show_wccp_pro_message(smessage);
-		
-		if (isSafari)
-		{
-			return true;
-		}
-		else
-		{
-			wccp_pro_clear_any_selection(); return false;
-		}
-	}
-	else
-	{
-		return true;
-	}
-}
-////////////////////////////
-function disable_copy_ie()
-{
-	wccp_pro_log_to_console_if_allowed("function", "disable_copy_ie_function_started");
-	
-	var e = e || window.event;
-	/*also there is no e.target property in IE.*/
-	/*instead IE uses window.event.srcElement*/
-  	var target = e.target || e.srcElement;
-	
-	var elemtype = window.event.srcElement.nodeName;
-	
-	elemtype = elemtype.toUpperCase();
-
-	if(wccp_pro_iscontenteditable(e) == true) return true;
-	
-	if (apply_class_exclusion(e) == "Yes") return true;
-	
-	if (elemtype == "IMG") {show_wccp_pro_message(alertMsg_IMG);return false;}
-	
-	//elemtype must be merged by elemtype checker on function disable_copy & disable_hot_keys
-	if (is_content_editable_element(elemtype) == false)
-	{
-		return false;
-	}
-}
-function disable_drag_text(e)
-{
-	wccp_pro_log_to_console_if_allowed("function", "disable_drag_text");
-	
-	/*var isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);*/
-	/*if (isSafari) {show_wccp_pro_message(alertMsg_IMG);return false;}*/
-	
-	var e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement*/
-  	
-	var target = e.target || e.srcElement;
-	
-	/*For contenteditable tags*/
-	
-	if (apply_class_exclusion(e) == "Yes") return true;
-
-	var elemtype = e.target.nodeName;
-	
-	elemtype = elemtype.toUpperCase();
-	
-	var disable_drag_text_drop = 'checked';
-	
-	if (disable_drag_text_drop != "checked")  return true;
-	
-	if (window.location.href.indexOf("/user/") > -1) {
-      return true; /*To allow users to drag & drop images when editing thier profiles*/
-    }
-	
-	return false;
-}
-
-/*/////////////////special for safari Start////////////////*/
-var onlongtouch;
-
-var timer;
-
-var touchduration = 1000; /*length of time we want the user to touch before we do something*/
-
-var elemtype = "";
-
-function touchstart(e)
-{
-	wccp_pro_log_to_console_if_allowed("function", "touchstart");
-	
-	var e = e || window.event;
-	/*also there is no e.target property in IE.*/
-	/*instead IE uses window.event.srcElement*/
-  	var target = e.target || e.srcElement;
-	
-	elemtype = window.event.srcElement.nodeName;
-	
-	elemtype = elemtype.toUpperCase();
-	
-	if(!wccp_pro_is_passive()) e.preventDefault();
-	if (!timer) {
-		timer = setTimeout(onlongtouch, touchduration);
-	}
-}
-
-function touchend()
-{
-	wccp_pro_log_to_console_if_allowed("function", "touchend");
-	
-    /*stops short touches from firing the event*/
-    if (timer) {
-        clearTimeout(timer);
-        timer = null;
-    }
-	onlongtouch();
-}
-
-onlongtouch = function(e)/*this will clear the current selection if any_not_editable_thing selected*/
-{
-	wccp_pro_log_to_console_if_allowed("function", "onlongtouch");
-	
-	if (is_content_editable_element(elemtype) == false)
-	{
-		if (window.getSelection) {
-			if (window.getSelection().empty) { /*Chrome*/
-			window.getSelection().empty();
-			} else if (window.getSelection().removeAllRanges) {  /*Firefox*/
-			window.getSelection().removeAllRanges();
-			}
-		} else if (document.selection) {  /*IE?*/
-			var textRange = document.body.createTextRange();
-			textRange.moveToElementText(element);
-			textRange.select();
-
-			document.selection.empty();
-		}
-		return false;
-	}
-};
-
-document.addEventListener("DOMContentLoaded", function(event)
-	{ 
-		window.addEventListener("touchstart", touchstart, false);
-		window.addEventListener("touchend", touchend, false);
-	});
-
-
-function wccp_pro_is_passive()
-{
-	wccp_pro_log_to_console_if_allowed("function", "wccp_pro_is_passive");
-	
-	var cold = false,
-	hike = function() {};
-
-	try {
-	var aid = Object.defineProperty({}, 'passive', {
-	get() {cold = true}
-	});
-	window.addEventListener('test', hike, aid);
-	window.removeEventListener('test', hike, aid);
-	} catch (e) {}
-
-	return cold;
-}
-/*/////////////////////////////////////////////////////////////////*/
-function reEnable()
-{
-	return true;
-}
-
-if(navigator.userAgent.indexOf('MSIE')==-1) //If not IE
-{
-	document.ondragstart = disable_drag_text;
-	document.onselectstart = call_disable_copy_WithDelay;
-	document.onselectionchange = call_disable_copy_WithDelay;
-	//document.onmousedown = disable_copy;
-	//document.addEventListener('click', disable_copy, false);
-	//document.addEventListener('click', set_current_clicked_element, false);
-	document.addEventListener('mousedown', set_current_clicked_element, false);
-	//document.onclick = reEnable;
-}else
-{
-	document.onselectstart = disable_copy_ie;
-}
-
-var current_clicked_element = "";
-
-var current_clicked_object = null;
-
-function set_current_clicked_element(e)
-{
-	var e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement
-  	
-	var target = e.target || e.srcElement;
-
-	var elemtype = e.target.nodeName;
-	
-	elemtype = elemtype.toUpperCase();
-	
-	current_clicked_element = elemtype;
-	
-	console.log("current_clicked_element = " + current_clicked_element);
-}
-</script>
-<script id="wccp_pro_disable_hot_keys">
-/*****************For contenteditable tags***************/
-var wccp_pro_iscontenteditable_flag = false;
-
-function wccp_pro_iscontenteditable(e)
-{
-	var e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement
-  	
-	var target = e.target || e.srcElement;
-	
-	var iscontenteditable = "false";
-		
-	if(typeof target.getAttribute!="undefined" )
-	{
-		iscontenteditable = target.getAttribute("contenteditable"); // Return true or false as string
-		
-		if(typeof target.hasAttribute!="undefined")
-		{
-			if(target.hasAttribute("contenteditable"))
-				iscontenteditable = true;
-		}
-	}
-	
-	console.log("iscontenteditable:" + iscontenteditable);
-	
-	var iscontenteditable2 = false;
-	
-	if(typeof target.isContentEditable!="undefined" ) iscontenteditable2 = target.isContentEditable; // Return true or false as boolean
-
-	if(target.parentElement !=null) iscontenteditable2 = target.parentElement.isContentEditable;
-	
-	if (iscontenteditable == "true" || iscontenteditable == true || iscontenteditable2 == true)
-	{
-		if(typeof target.style!="undefined" ) target.style.cursor = "text";
-		
-		//wccp_pro_log_to_console_if_allowed("", iscontenteditable + " " + iscontenteditable2);
-		
-		wccp_pro_iscontenteditable_flag = true;
-		
-		wccp_pro_log_to_console_if_allowed("function", "wccp_pro_iscontenteditable: true");
-		
-		return true;
-	}
-	wccp_pro_log_to_console_if_allowed("function", "wccp_pro_iscontenteditable: false");
-	
-	//wccp_pro_iscontenteditable_flag = false;
-}
-/******************************************************/
-function wccp_pro_clear_any_selection()
-{
-	if(window.wccp_pro_iscontenteditable_flag == true) return;
-	
-	wccp_pro_log_to_console_if_allowed("function", "wccp_pro_clear_any_selection");
-	
-	var myName = wccp_pro_clear_any_selection.caller.toString();
-	
-	myName = myName.substr('function '.length);
-	
-	myName = myName.substr(0, myName.indexOf('('));
-
-	console.log("called_by: " + myName);
-	
-	if (window.getSelection)
-	{
-		if (window.getSelection().empty)
-		{  // Chrome
-			window.getSelection().empty();
-		} else if (window.getSelection().removeAllRanges) 
-		{  // Firefox
-			window.getSelection().removeAllRanges();
-		}
-	} else if (document.selection)
-	{  // IE?
-		document.selection.empty();
-	}
-	
-	//show_wccp_pro_message("You are not allowed to make this operation");
-}
-
-
-/*Is content_editable element*/
-function is_content_editable_element(element_name = "")
-{
-	if (element_name == "TEXT" || element_name == "#TEXT" || element_name == "TEXTAREA" || element_name == "INPUT" || element_name == "PASSWORD" || element_name == "SELECT" || element_name == "OPTION" || element_name == "EMBED" || element_name == "CODE" || element_name == "CODEBLOCK")
-	{
-		wccp_pro_log_to_console_if_allowed("function", "is_content_editable_element: true >>" + element_name);
-		
-		return true;
-	}
-	wccp_pro_log_to_console_if_allowed("function", "is_content_editable_element: false >>" + element_name);
-	
-	return false;
-}
-/*Is selection enabled element*/
-/*
-function is_selection_enabled_element(element_name = "")
-{
-	if (is_content_editable_element == true)
-	{
-		wccp_pro_log_to_console_if_allowed("function", "is_selection_enabled_element: true >>" + element_name);
-		
-		return true;
-	}
-	wccp_pro_log_to_console_if_allowed("function", "is_selection_enabled_element: false >>" + element_name);
-	
-	return false;
-}
-*/
-/*Hot keys function  */
-function disable_hot_keys(e)
-{
-	wccp_pro_log_to_console_if_allowed("function", "disable_hot_keys");
-	
-	e = e || window.event;
-	
-	//console.log(e);
-	
-	if (!e) return;
-	
-	var key;
-
-		if(window.event)
-			  key = window.event.keyCode;     /*IE*/
-		else if (e.hasOwnProperty("which")) key = e.which;     /*firefox (97)*/
-
-	wccp_pro_log_to_console_if_allowed("Data:", key);
-	
-			
-		if (key == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) )//F12 chrome developer key disable
-		{
-			show_wccp_pro_message('');
-			
-			return false;
-		}
-		
-	var elemtype = e.target.tagName;
-	
-	elemtype = elemtype.toUpperCase();
-	
-	var sel = getSelectionTextAndContainerElement();
-	
-	if(elemtype == "BODY" && sel.text != "") elemtype = sel.containerElement.tagName; /* no need for it when tag name is BODY, so we get the selected text tag name */
-
-	/*elemtype must be merged by elemtype checker on function disable_copy & disable_copy_ie*/
-	if (is_content_editable_element(elemtype) == true)
-	{
-		elemtype = 'TEXT';
-	}
-	
-	if(wccp_pro_iscontenteditable(e) == true) elemtype = 'TEXT';
-	
-		if (key == 44)/*For any emement type, text elemtype is not excluded here, (prntscr (44)*/
-		{
-			copyTextToClipboard("");
-			show_wccp_pro_message('');
-			return false;
-		}	
-	if (e.ctrlKey || e.metaKey)
-	{
-		if (elemtype!= 'TEXT' && (key == 97 || key == 99 || key == 120 || key == 26 || key == 43))
-		{
-			 show_wccp_pro_message('');
-			 return false;
-		}
-		if (elemtype!= 'TEXT')
-		{
-						
-			if (key == 65)
-			{
-				show_wccp_pro_message('');
-				return false;
-			}			
-						
-			if (key == 67)
-			{
-				show_wccp_pro_message('');
-				return false;
-			}			
-						
-			if (key == 88)
-			{
-				show_wccp_pro_message('');
-				return false;
-			}			
-						
-			if (key == 86)
-			{
-				show_wccp_pro_message('');
-				return false;
-			}		}
-				
-		if (key == 85)
-		{
-			show_wccp_pro_message('');
-			return false;
-		}		
-				if (key == 80)
-		{
-			show_wccp_pro_message('');
-			return false;
-		}		
-				if (key == 44)
-		{
-			copyTextToClipboard("no");
-			show_wccp_pro_message('');
-			return false;
-		}		
-		
-					if (key == 73)//F12 chrome developer key disable
-			{
-				show_wccp_pro_message('');
-				return false;
-			}
-				
-				
-		if (key == 83)
-		{
-			show_wccp_pro_message('');
-			return false;
-		}    }
-return true;
-}
-
-
-window.addEventListener('load', function (){
-	if(window.Zepto || !window.jQuery) jQuery =  $;
-	jQuery(document).ready(function() {
-	  jQuery(document).bind("keyup keydown", disable_hot_keys);
-	});
-});
-
-</script>
-<style>
-.wccp_pro_copy_code_button
-{
-	line-height: 6px;
-	width: auto;
-	font-size: 8pt;
-	font-family: tahoma;
-	margin-top: 1px;
-	margin-right: 2px;
-	position:absolute;
-	top:0;
-	right:0;
-	border-radius: 4px;
-	opacity: 100%;
-	margin-top: -30px;
-}
-.wccp_pro_copy_code_button:hover
-{
-	opacity: 100%;
-}
-
-.wccp_pro_copy_code_button[disabled]
-{
-	opacity: 40%;
-	border-color: red;
-}
-code,pre
-{
-	overflow: visible;
-	white-space: pre-line;
-}
-</style>
-<script id="wccp_pro_disable_Right_Click">
-		function nocontext(e) {
-
-			wccp_pro_log_to_console_if_allowed("function", "nocontext");
-			
-			e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement
-			
-			if (apply_class_exclusion(e) == 'Yes') return true;
-			
-	    	var exception_tags = 'NOTAG,';
-			
-	        var clickedTag = (e==null) ? event.srcElement.tagName : e.target.tagName;
-			
-			console.log("clickedTag: " + clickedTag);
-			
-			var target = e.target || e.srcElement;
-			
-			var parent_tag = ""; var parent_of_parent_tag = "";
-			
-			if(target.parentElement != null)
-			{
-				parent_tag = target.parentElement.tagName;
-				
-				if(target.parentElement.parentElement != null) parent_of_parent_tag = target.parentElement.parentElement.tagName;
-			}
-			
-	        var checker = 'checked';
-	        if ((clickedTag == "IMG" || clickedTag == "FIGURE" || clickedTag == "SVG" || clickedTag == "PROTECTEDIMGDIV") && checker == 'checked') {
-	            if (alertMsg_IMG != "")show_wccp_pro_message(alertMsg_IMG);
-	            return false;
-	        }else {exception_tags = exception_tags + 'IMG,';}
-			
-			checker = '';
-			if ((clickedTag == "VIDEO" || clickedTag == "PROTECTEDWCCPVIDEO" || clickedTag == "EMBED") && checker == 'checked') {
-	            if (alertMsg_VIDEO != "")show_wccp_pro_message(alertMsg_VIDEO);
-	            return false;
-	        }else {exception_tags = exception_tags + 'VIDEO,PROTECTEDWCCPVIDEO,EMBED,';}
-	        
-	        checker = 'checked';
-	        if ((clickedTag == "A" || clickedTag == "TIME" || parent_tag == "A" || parent_of_parent_tag == "A") && checker == 'checked') {
-	            if (alertMsg_A != "")show_wccp_pro_message(alertMsg_A);
-	            return false;
-	        }else {exception_tags = exception_tags + 'A,';if(parent_tag == "A" || parent_of_parent_tag == "A") clickedTag = "A";}
-
-	        checker = 'checked';
-	        if ((clickedTag == "P" || clickedTag == "B" || clickedTag == "FONT" ||  clickedTag == "LI" || clickedTag == "UL" || clickedTag == "STRONG" || clickedTag == "OL" || clickedTag == "BLOCKQUOTE" || clickedTag == "TH" || clickedTag == "TR" || clickedTag == "TD" || clickedTag == "SPAN" || clickedTag == "EM" || clickedTag == "SMALL" || clickedTag == "I" || clickedTag == "BUTTON") && checker == 'checked') {
-	            if (alertMsg_PB != "")show_wccp_pro_message(alertMsg_PB);
-	            return false;
-	        }else {exception_tags = exception_tags + 'P,B,FONT,LI,UL,STRONG,OL,BLOCKQUOTE,TD,SPAN,EM,SMALL,I,BUTTON,';}
-	        
-	        checker = 'checked';
-	        if ((clickedTag == "INPUT" || clickedTag == "PASSWORD") && checker == 'checked') {
-	            if (alertMsg_INPUT != "")show_wccp_pro_message(alertMsg_INPUT);
-	            return false;
-	        }else {exception_tags = exception_tags + 'INPUT,PASSWORD,';}
-	        
-	        checker = 'checked';
-	        if ((clickedTag == "H1" || clickedTag == "H2" || clickedTag == "H3" || clickedTag == "H4" || clickedTag == "H5" || clickedTag == "H6" || clickedTag == "ASIDE" || clickedTag == "NAV") && checker == 'checked') {
-	            if (alertMsg_H != "")show_wccp_pro_message(alertMsg_H);
-	            return false;
-	        }else {exception_tags = exception_tags + 'H1,H2,H3,H4,H5,H6,';}
-	        
-	        checker = 'checked';
-	        if (clickedTag == "TEXTAREA" && checker == 'checked') {
-	            if (alertMsg_TEXTAREA != "")show_wccp_pro_message(alertMsg_TEXTAREA);
-	            return false;
-	        }else {exception_tags = exception_tags + 'TEXTAREA,';}
-	        
-	        checker = 'checked';
-	        if ((clickedTag == "DIV" || clickedTag == "BODY" || clickedTag == "HTML" || clickedTag == "ARTICLE" || clickedTag == "SECTION" || clickedTag == "NAV" || clickedTag == "HEADER" || clickedTag == "FOOTER") && checker == 'checked') {
-	            if (alertMsg_EmptySpaces != "")show_wccp_pro_message(alertMsg_EmptySpaces);
-	            return false;
-	        }
-	        else
-	        {
-	        	if (exception_tags.indexOf(clickedTag)!=-1)
-	        	{
-		        	return true;
-		        }
-	        	else
-	        	return false;
-	        }
-	    }
-		
-		function disable_drag_images(e)
-		{
-			wccp_pro_log_to_console_if_allowed("function", "disable_drag_images");
-			
-			var e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement
-			
-			var target = e.target || e.srcElement;
-			
-			//For contenteditable tags
-			if (apply_class_exclusion(e) == "Yes") return true;
-
-			var elemtype = e.target.nodeName;
-			
-			if (elemtype != "IMG") {return;}
-			
-			elemtype = elemtype.toUpperCase();
-			
-			var disable_drag_drop_images = 'checked';
-			
-			if (disable_drag_drop_images != "checked")  return true;
-			
-			if (window.location.href.indexOf("/user/") > -1) {
-			  return true; //To allow users to drag & drop images when editing thier profiles
-			}
-			
-			show_wccp_pro_message(alertMsg_IMG);
-			
-			return false;
-		}
-		
-	    var alertMsg_IMG = "";
-	    var alertMsg_A = "";
-	    var alertMsg_PB = "";
-	    var alertMsg_INPUT = "";
-	    var alertMsg_H = "";
-	    var alertMsg_TEXTAREA = "";
-	    var alertMsg_EmptySpaces = "";
-		var alertMsg_VIDEO = "";
-	    document.oncontextmenu=null;
-		document.oncontextmenu = nocontext;
-		document.addEventListener("contextmenu",nocontext);
-		window.addEventListener("contextmenu",nocontext);
-</script>
-<script id="wccp_pro_disable_drag_images">
-	document.ondragstart = disable_drag_images;
-		window.addEventListener('load', function (){
-			if(window.Zepto || !window.jQuery) jQuery =  $;
-			jQuery(document).ready(function(){
-				jQuery('img').each(function() {
-					jQuery(this).attr('draggable', false);
-				});
-			});
-		});
-	</script>
-<style id="wccp_pro_style1">
-		img{
-			-moz-user-select: none;
-			-webkit-user-select: none;
-			-ms-user-select: none;
-			-khtml-user-select: none;
-			user-select: none;
-			-webkit-user-drag: none;
-		}
-	</style>
-<script id="wccp_pro_css_disable_selection">
-	function wccp_pro_msieversion() 
-		{
-			var ua = window.navigator.userAgent;
-			var msie = ua.indexOf("MSIE");
-			var msie2 = ua.indexOf("Edge");
-			var msie3 = ua.indexOf("Trident");
-
-		if (msie > -1 || msie2 > -1 || msie3 > -1) // If Internet Explorer, return version number
-		{
-			return "IE";
-		}
-		else  // If another browser, return 0
-		{
-			return "otherbrowser";
-		}
-	}
-    
-	var e = document.getElementsByTagName('H1')[0];
-	if(e && wccp_pro_msieversion() == "IE")
-	{
-		e.setAttribute('unselectable',"on");
-	}
-	</script>
-<script id="wccp_pro_class_exclusion">
-function copyToClipboard(elem) {
-	  // create hidden text element, if it doesn't already exist
-    var targetId = "_wccp_pro_hiddenCopyText_";
-    {
-        // must use a temporary form element for the selection and copy
-        target = document.getElementById(targetId);
-        if (!target) {
-            var target = document.createElement("textarea");
-            target.style.position = "absolute";
-            target.style.left = "-9999px";
-            target.style.top = "0";
-            target.id = targetId;
-            document.body.appendChild(target);
-        }
-        target.textContent = elem.textContent;
-    }
-    // select the content
-    var currentFocus = document.activeElement;
-    target.focus();
-    target.setSelectionRange(0, target.value.length);
-    
-    // copy the selection
-    var succeed;
-    try {
-    	  succeed = document.execCommand("copy");
-    } catch(e) {
-        succeed = false;
-    }
-
-    // restore original focus
-    if (currentFocus && typeof currentFocus.focus === "function") {
-        currentFocus.focus();
-    }
-    
-    
-	// clear temporary content
-	target.textContent = "";
-	document.getElementsByTagName('span')[0].innerHTML = " ";
-    return succeed;
-}
-/**************************************************/
-function wccp_pro_log_to_console_if_allowed(title = "title", data = "")
-{
-	var myName = "";
-	
-	if(wccp_pro_log_to_console_if_allowed.caller != null) myName = wccp_pro_log_to_console_if_allowed.caller.toString();
-	
-	myName = myName.substr('function '.length);
-	
-	myName = myName.substr(0, myName.indexOf('('));
-
-	//console.log("function_name: " + myName);
-	
-	}
-/**************************************************/
-function fallbackCopyTextToClipboard(text) {
-  var textArea = document.createElement("textarea");
-  textArea.value = text;
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
-
-  try {
-    var successful = document.execCommand("copy");
-    var msg = successful ? "successful" : "unsuccessful";
-    console.log("Fallback: Copying text command was " + msg);
-  } catch (err) {
-    console.error("Fallback: Oops, unable to copy", err);
-  }
-
-  document.body.removeChild(textArea);
-}
-/*****************************************/
-function copyTextToClipboard(text) {
-  if (!navigator.clipboard) {
-    fallbackCopyTextToClipboard(text);
-    return;
-  }
-  navigator.clipboard.writeText(text).then(
-    function() {
-      console.log("Async: Copying to clipboard was successful!");
-    },
-    function(err) {
-      console.error("Async: Could not copy text: ", err);
-    }
-  );
-}
-/*****************************************/
-/*getSelectionTextAndContainerElement*/
-function getSelectionTextAndContainerElement()
-{
-    var text = "", containerElement = null;
-    if (typeof window.getSelection != "undefined") {
-        var sel = window.getSelection();
-        if (sel.rangeCount) {
-            var node = sel.getRangeAt(0).commonAncestorContainer;
-            containerElement = node.nodeType == 1 ? node : node.parentNode;
-			if (typeof(containerElement.parentElement) != 'undefined') current_clicked_object = containerElement.parentElement;
-            text = sel.toString();
-        }
-    } else if (typeof document.selection != "undefined" && document.selection.type != "Control")
-	{
-        var textRange = document.selection.createRange();
-        containerElement = textRange.parentElement();
-        text = textRange.text;
-    }
-    
-	return {
-        text: text,
-        containerElement: containerElement
-    };
-}
-
-function getSelectionParentElement() {
-    var parentEl = null, sel;
-	
-    if (window.getSelection) {
-        sel = window.getSelection();
-        if (sel.rangeCount) {
-            parentEl = sel.getRangeAt(0).commonAncestorContainer;
-			//sel.getRangeAt(0).startContainer.parentNode;
-            if (parentEl.nodeType != 1) {
-                parentEl = parentEl.parentNode;
-            }
-        }
-    } else if ( (sel = document.selection) && sel.type != "Control") {
-        parentEl = sel.createRange().parentElement();
-    }
-	
-	let arr = new Array();
-	
-	arr["nodeName"] = "cant_find_parent_element";
-	
-	if(parentEl != null)
-		return parentEl;
-	else
-		return arr;
-}
-/*****************************************/
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-/*****************************************/
-</script>
-<script id="apply_class_exclusion">
-function apply_class_exclusion(e)
-{
-	wccp_pro_log_to_console_if_allowed("function", "apply_class_exclusion" + e);
-	
-	var my_return = 'No';
-	
-	var e = e || window.event; // also there is no e.target property in IE. instead IE uses window.event.srcElement
-  	
-	var target = e.target || e.srcElement || 'nothing';
-	
-	//if(target.parentElement != null) console.log (target.parentElement.className);
-	
-	var excluded_classes = '' + '';
-	
-	var class_to_exclude = "";
-	
-	if(target.parentElement != null)
-	{
-		class_to_exclude = target.className + ' ' + target.parentElement.className || '';
-	}else{
-		class_to_exclude = target.className;
-	}
-	
-	var class_to_exclude_array = Array();
-	
-	//console.log(class_to_exclude);
-	
-	if (typeof(class_to_exclude) != 'undefined') class_to_exclude_array = class_to_exclude.split(" ");
-	
-	//console.log (class_to_exclude_array);
-	
-	class_to_exclude_array.forEach(function(item)
-	{
-		if(item != '' && excluded_classes.indexOf(item)>=0)
-		{
-			//target.style.cursor = "text";
-			
-			//console.log ('Yes');
-			
-			my_return = 'Yes';
-		}
-	});
-
-	try {
-		class_to_exclude = target.parentElement.getAttribute('class') || target.parentElement.className || '';
-		}
-	catch(err) 
-		{
-		class_to_exclude = '';
-		}
-	
-	if(class_to_exclude != '' && excluded_classes.indexOf(class_to_exclude)>=0)
-	{
-		//target.style.cursor = "text";
-		my_return = 'Yes';
-	}
-
-	return my_return;
-}
-</script>
-<style data-asas-style="" id="wccp_pro_style2">
-
-	
-	*[contenteditable] , [contenteditable] *,*[contenteditable="true"] , [contenteditable="true"] * { /* for contenteditable tags*/ , /* for tags inside contenteditable tags*/
-	  -webkit-user-select: auto !important;
-	  cursor: text !important;
-	  user-select: text !important;
-	  pointer-events: auto !important;
-	}
-	
-	/*
-	*[contenteditable]::selection, [contenteditable] *::selection, [contenteditable="true"]::selection, [contenteditable="true"] *::selection { background: Highlight !important; color: HighlightText !important;}
-	*[contenteditable]::-moz-selection, [contenteditable="true"] *::-moz-selection { background: Highlight !important; color: HighlightText !important;}
-	input::selection,textarea::selection, code::selection, code > *::selection { background: Highlight !important; color: HighlightText !important;}
-	input::-moz-selection,textarea::-moz-selection, code::-moz-selection, code > *::-moz-selection { background: Highlight !important; color: HighlightText !important;}
-	*/
-	a{ cursor: pointer ; pointer-events: auto !important;}
-
-	</style><style>TEXT,TEXTAREA,input[type="text"] {cursor: text !important; user-select: text !important;}</style>
-<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
-<link href="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/css/bdt-uikit.css?ver=3.17.11" id="bdt-uikit-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/css/ep-helper.css?ver=7.12.2" id="ep-helper-css" media="all" rel="stylesheet"/>
-<style id="wp-emoji-styles-inline-css">
-
-	img.wp-smiley, img.emoji {
-		display: inline !important;
-		border: none !important;
-		box-shadow: none !important;
-		height: 1em !important;
-		width: 1em !important;
-		margin: 0 0.07em !important;
-		vertical-align: -0.1em !important;
-		background: none !important;
-		padding: 0 !important;
-	}
-</style>
-<style id="classic-theme-styles-inline-css">
-/*! This file is auto-generated */
-.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
-</style>
-<link href="/assets/vendor/wp-content/plugins/whatsapp-for-wordpress/assets/dist/css/style.css?ver=6.8.11" id="nta-css-popup-css" media="all" rel="stylesheet"/>
-<style id="global-styles-inline-css">
-:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
-:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
-:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
-:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
-</style>
-<link href="/assets/vendor/wp-content/themes/phlox-pro/css/base.css?ver=5.17.6" id="auxin-base-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/themes/phlox-pro/css/auxin-icon.css?ver=5.17.6" id="auxin-front-icon-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/themes/phlox-pro/css/main.css?ver=5.17.6" id="auxin-main-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor/assets/lib/animations/styles/slideInLeft.min.css?ver=3.30.2" id="e-animation-slideInLeft-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/css/ep-animated-heading.css?ver=7.12.2" id="ep-animated-heading-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor/assets/lib/animations/styles/e-animation-pulse-grow.min.css?ver=3.30.2" id="e-animation-pulse-grow-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=3.30.2" id="elementor-frontend-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css?ver=3.30.2" id="widget-social-icons-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor/assets/css/conditionals/apple-webkit.min.css?ver=3.30.2" id="e-apple-webkit-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=3.30.2" id="widget-heading-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=3.30.2" id="widget-image-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=3.30.0" id="widget-nav-menu-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.43.0" id="elementor-icons-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/uploads/elementor/css/post-6.css?ver=1765009210" id="elementor-post-6-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/auxin-elements/admin/assets/css/elementor-widgets.css?ver=2.17.5" id="auxin-elementor-widgets-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/css/ep-advanced-heading.css?ver=7.12.2" id="ep-advanced-heading-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=3.30.2" id="widget-spacer-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/css/ep-call-out.css?ver=7.12.2" id="ep-call-out-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/uploads/elementor/css/post-9.css?ver=1765051436" id="elementor-post-9-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/uploads/elementor/css/post-25.css?ver=1765009212" id="elementor-post-25-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/uploads/elementor/css/post-58.css?ver=1765009214" id="elementor-post-58-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/wccp-pro/css-protect.css?wccp_ver_num=1&amp;ver=10.9.2" id="css-protect.css-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/wccp-pro/css/print-protection.css?wccp_ver_num=1&amp;ver=6.8.11" id="print-protection.css-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/uploads/phlox-pro/custom.css?ver=7.8" id="auxin-custom-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/themes/phlox-pro/css/go-pricing.css?ver=5.17.6" id="auxin-go-pricing-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/themes/phlox-pro/css/other/elementor.css?ver=5.17.6" id="auxin-elementor-base-css" media="all" rel="stylesheet"/>
-<link href="/?plugin=ARFormslite&amp;controller=settings&amp;ver=1.7.6" id="arflite-forms0-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/uploads/elementor/google-fonts/css/roboto.css?ver=1752491802" id="elementor-gf-local-roboto-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/uploads/elementor/google-fonts/css/robotoslab.css?ver=1752491807" id="elementor-gf-local-robotoslab-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/uploads/elementor/google-fonts/css/barlow.css?ver=1752492976" id="elementor-gf-local-barlow-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/uploads/elementor/google-fonts/css/opensans.css?ver=1752492982" id="elementor-gf-local-opensans-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/uploads/elementor/google-fonts/css/poppins.css?ver=1752491804" id="elementor-gf-local-poppins-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3" id="elementor-icons-shared-0-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor/assets/lib/font-awesome/css/brands.min.css?ver=5.15.3" id="elementor-icons-fa-brands-css" media="all" rel="stylesheet"/>
-<link href="/assets/vendor/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=5.15.3" id="elementor-icons-fa-solid-css" media="all" rel="stylesheet"/>
-<script data-cfasync="false" id="jquery-core-js" src="/assets/vendor/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
-<script data-cfasync="false" id="jquery-migrate-js" src="/assets/vendor/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
-<script id="auxin-elementor-pro-widgets-js" src="/assets/vendor/wp-content/plugins/auxin-pro-tools/admin/assets/js/elementor/widgets.js?ver=1.9.5"></script>
-<script id="auxin-modernizr-js-extra">
-var auxin = {"ajax_url":"\/wp-admin\/admin-ajax.php","is_rtl":"","is_reponsive":"1","is_framed":"","frame_width":"20","wpml_lang":"en","uploadbaseurl":"\/assets\/vendor\/wp-content\/uploads","nonce":"a37ad03d43"};
-</script>
-<script id="auxin-modernizr-js-before">
-/* < ![CDATA[ */
-function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)"window"!=e[t]&&(i=e[t],a[i]=a[i]||{},a=a[i]);return a;}
-/* ]]> */
-</script>
-<script id="auxin-modernizr-js" src="/assets/vendor/wp-content/themes/phlox-pro/js/solo/modernizr-custom.min.js?ver=5.17.6"></script>
 <!-- Chrome, Firefox OS and Opera -->
 <meta content="#1bb0ce" name="theme-color"/>
 <!-- Windows Phone -->
@@ -1087,44 +16,17 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <!-- iOS Safari -->
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
-<style>.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style> <style>
-				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
-				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
-					background-image: none !important;
-				}
-				@media screen and (max-height: 1024px) {
-					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
-					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
-						background-image: none !important;
-					}
-				}
-				@media screen and (max-height: 640px) {
-					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
-					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
-						background-image: none !important;
-					}
-				}
-			</style>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
 <link href="/assets/vendor/wp-content/uploads/2021/03/Solar-Favicon.png" rel="icon" sizes="32x32"/>
 <link href="/assets/vendor/wp-content/uploads/2021/03/Solar-Favicon.png" rel="icon" sizes="192x192"/>
 <link href="/assets/vendor/wp-content/uploads/2021/03/Solar-Favicon.png" rel="apple-touch-icon"/>
 <meta content="/assets/vendor/wp-content/uploads/2021/03/Solar-Favicon.png" name="msapplication-TileImage"/>
-<style id="yellow-pencil">
-
-/*
-
-	The following CSS codes are created by the YellowPencil plugin.
-
-	https://yellowpencil.waspthemes.com/
-
-*/
-
-.elementor-location-header .elementor-element-2da29cd .elementor-widget-wrap{top:8px;}.hentry .elementor-element-2da29cd .elementor-widget-wrap{top:8px;}
-</style><!-- end wp_head -->
-<link href="/assets/runtime/site-fixes.css" rel="stylesheet"/><script src="/assets/runtime/visibility.js"></script><meta content="About Our Solar Installation Team | SolarElectricWise" name="title"/><meta content="Learn about SolarElectricWise, a Noordhoek solar PV installation company working in the solar industry since 2015, and our approach to solar energy." name="description"/><meta content="index, follow, max-image-preview:large" name="robots"/><link href="https://www.solarelectricwise.co.za/about-us/" rel="canonical"/><meta content="website" property="og:type"/><meta content="en_ZA" property="og:locale"/><meta content="SolarElectricWise" property="og:site_name"/><meta content="About Our Solar Installation Team | SolarElectricWise" property="og:title"/><meta content="Learn about SolarElectricWise, a Noordhoek solar PV installation company working in the solar industry since 2015, and our approach to solar energy." property="og:description"/><meta content="https://www.solarelectricwise.co.za/about-us/" property="og:url"/><meta content="https://www.solarelectricwise.co.za/assets/vendor/wp-content/uploads/2021/03/LOGO-New-big-sun-600-120.png" property="og:image"/><meta content="SolarElectricWise logo" property="og:image:alt"/><meta content="summary" name="twitter:card"/><meta content="About Our Solar Installation Team | SolarElectricWise" name="twitter:title"/><meta content="Learn about SolarElectricWise, a Noordhoek solar PV installation company working in the solar industry since 2015, and our approach to solar energy." name="twitter:description"/><meta content="https://www.solarelectricwise.co.za/assets/vendor/wp-content/uploads/2021/03/LOGO-New-big-sun-600-120.png" name="twitter:image"/><script data-solar-schema="true" type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LocalBusiness", "@id": "https://www.solarelectricwise.co.za/#organization", "name": "SolarElectricWise", "url": "https://www.solarelectricwise.co.za/", "logo": {"@type": "ImageObject", "url": "https://www.solarelectricwise.co.za/assets/vendor/wp-content/uploads/2021/03/LOGO-New-big-sun-600-120.png"}, "telephone": "+27835719191", "email": "info@solarelectricwise.co.za", "address": {"@type": "PostalAddress", "streetAddress": "1 Heldray Rd", "addressLocality": "Noordhoek", "postalCode": "7979", "addressCountry": "ZA"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "17:00"}]}, {"@type": "WebSite", "@id": "https://www.solarelectricwise.co.za/#website", "url": "https://www.solarelectricwise.co.za/", "name": "SolarElectricWise", "publisher": {"@id": "https://www.solarelectricwise.co.za/#organization"}}, {"@type": "AboutPage", "@id": "https://www.solarelectricwise.co.za/about-us/#webpage", "url": "https://www.solarelectricwise.co.za/about-us/", "name": "About Our Solar Installation Team | SolarElectricWise", "description": "Learn about SolarElectricWise, a Noordhoek solar PV installation company working in the solar industry since 2015, and our approach to solar energy.", "inLanguage": "en-ZA", "isPartOf": {"@id": "https://www.solarelectricwise.co.za/#website"}, "about": {"@id": "https://www.solarelectricwise.co.za/#organization"}}]}</script></head>
-<body class="wp-singular page-template-default page page-id-9 wp-custom-logo wp-theme-phlox-pro auxin-pro non-logged-in unselectable elementor-default elementor-template-full-width elementor-kit-6 elementor-page elementor-page-9 phlox-pro aux-dom-unready aux-full-width aux-resp aux-fhd aux-top-sticky aux-page-animation-off _auxels" data-framed="" data-page="about-us">
+<!-- end wp_head -->
+<meta content="About Our Solar Installation Team | SolarElectricWise" name="title"/><meta content="Learn about SolarElectricWise, a Noordhoek solar PV installation company working in the solar industry since 2015, and our approach to solar energy." name="description"/><meta content="index, follow, max-image-preview:large" name="robots"/><link href="https://www.solarelectricwise.co.za/about-us/" rel="canonical"/><meta content="website" property="og:type"/><meta content="en_ZA" property="og:locale"/><meta content="SolarElectricWise" property="og:site_name"/><meta content="About Our Solar Installation Team | SolarElectricWise" property="og:title"/><meta content="Learn about SolarElectricWise, a Noordhoek solar PV installation company working in the solar industry since 2015, and our approach to solar energy." property="og:description"/><meta content="https://www.solarelectricwise.co.za/about-us/" property="og:url"/><meta content="https://www.solarelectricwise.co.za/assets/vendor/wp-content/uploads/2021/03/LOGO-New-big-sun-600-120.png" property="og:image"/><meta content="SolarElectricWise logo" property="og:image:alt"/><meta content="summary" name="twitter:card"/><meta content="About Our Solar Installation Team | SolarElectricWise" name="twitter:title"/><meta content="Learn about SolarElectricWise, a Noordhoek solar PV installation company working in the solar industry since 2015, and our approach to solar energy." name="twitter:description"/><meta content="https://www.solarelectricwise.co.za/assets/vendor/wp-content/uploads/2021/03/LOGO-New-big-sun-600-120.png" name="twitter:image"/><script data-solar-schema="true" type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "LocalBusiness", "@id": "https://www.solarelectricwise.co.za/#organization", "name": "SolarElectricWise", "url": "https://www.solarelectricwise.co.za/", "logo": {"@type": "ImageObject", "url": "https://www.solarelectricwise.co.za/assets/vendor/wp-content/uploads/2021/03/LOGO-New-big-sun-600-120.png"}, "telephone": "+27835719191", "email": "info@solarelectricwise.co.za", "address": {"@type": "PostalAddress", "streetAddress": "1 Heldray Rd", "addressLocality": "Noordhoek", "postalCode": "7979", "addressCountry": "ZA"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "17:00"}]}, {"@type": "WebSite", "@id": "https://www.solarelectricwise.co.za/#website", "url": "https://www.solarelectricwise.co.za/", "name": "SolarElectricWise", "publisher": {"@id": "https://www.solarelectricwise.co.za/#organization"}}, {"@type": "AboutPage", "@id": "https://www.solarelectricwise.co.za/about-us/#webpage", "url": "https://www.solarelectricwise.co.za/about-us/", "name": "About Our Solar Installation Team | SolarElectricWise", "description": "Learn about SolarElectricWise, a Noordhoek solar PV installation company working in the solar industry since 2015, and our approach to solar energy.", "inLanguage": "en-ZA", "isPartOf": {"@id": "https://www.solarelectricwise.co.za/#website"}, "about": {"@id": "https://www.solarelectricwise.co.za/#organization"}}]}</script><link href="/assets/optimized/about-us-3d103575d61c.css" rel="stylesheet"/><style id="solar-service-visibility">/* Static content must not depend on the removed scroll-animation runtime. */
+.aux-appear-watch-animation{opacity:1!important;visibility:visible!important;transform:none!important}
+</style></head>
+<body class="wp-singular page-template-default page page-id-9 wp-custom-logo wp-theme-phlox-pro auxin-pro non-logged-in elementor-default elementor-template-full-width elementor-kit-6 elementor-page elementor-page-9 phlox-pro aux-dom-unready aux-full-width aux-resp aux-fhd aux-top-sticky aux-page-animation-off _auxels aux-dom-ready e--ua-webkit" data-framed="" data-optimized="true" data-page="about-us">
 <div id="inner-body">
 <div class="elementor elementor-25 elementor-location-header" data-elementor-id="25" data-elementor-post-type="elementor_library" data-elementor-type="header">
 <section class="elementor-section elementor-top-section elementor-element elementor-element-2da29cd elementor-section-full_width elementor-section-stretched elementor-hidden-phone elementor-section-height-default elementor-section-height-default" data-element_type="section" data-id="2da29cd" data-settings='{"stretch_section":"section-stretched","background_background":"classic"}'>
@@ -1133,7 +35,7 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <div class="elementor-widget-wrap elementor-element-populated">
 <div class="elementor-element elementor-element-71c57bc elementor-hidden-tablet elementor-hidden-mobile elementor-widget elementor-widget-bdt-animated-heading" data-element_type="widget" data-id="71c57bc" data-widget_type="bdt-animated-heading.default">
 <div class="elementor-widget-container">
-<div class="bdt-heading" id="bdtah-71c57bc"><h5 class="bdt-heading-tag" style="opacity: 0"><a href="/contact-us/"><span class="bdt-animated-heading" data-settings='{"layout":"animated","animation":"slideInLeft","speed":4500}' id="bdt-ah-71c57bc">Tel: 083 571 9191,Email: info@solarelectricwise.co.za</span> </a></h5></div> </div>
+<div class="bdt-heading" id="bdtah-71c57bc"><h5 class="bdt-heading-tag" role="presentation"><a href="/contact-us/"><span class="bdt-animated-heading" data-settings='{"layout":"animated","animation":"slideInLeft","speed":4500}' id="bdt-ah-71c57bc">Tel: 083 571 9191,Email: info@solarelectricwise.co.za</span> </a></h5></div> </div>
 </div>
 </div>
 </div>
@@ -1160,7 +62,7 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <div class="elementor-widget-wrap elementor-element-populated">
 <div class="elementor-element elementor-element-ad36a9f elementor-hidden-desktop elementor-hidden-tablet elementor-widget elementor-widget-bdt-animated-heading" data-element_type="widget" data-id="ad36a9f" data-widget_type="bdt-animated-heading.default">
 <div class="elementor-widget-container">
-<div class="bdt-heading" id="bdtah-ad36a9f"><h5 class="bdt-heading-tag" style="opacity: 0"><a href="/contact-us/"><span class="bdt-animated-heading" data-settings='{"layout":"animated","animation":"slideInLeft","speed":4500}' id="bdt-ah-ad36a9f">Tel: 083 571 9191,Email: info@solarelectricwise.co.za</span> </a></h5></div> </div>
+<div class="bdt-heading" id="bdtah-ad36a9f"><h5 class="bdt-heading-tag" role="presentation"><a href="/contact-us/"><span class="bdt-animated-heading" data-settings='{"layout":"animated","animation":"slideInLeft","speed":4500}' id="bdt-ah-ad36a9f">Tel: 083 571 9191,Email: info@solarelectricwise.co.za</span> </a></h5></div> </div>
 </div>
 </div>
 </div>
@@ -1170,19 +72,19 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <div class="elementor-widget-container">
 <div class="elementor-social-icons-wrapper elementor-grid" role="list">
 <span class="elementor-grid-item" role="listitem">
-<a class="elementor-icon elementor-social-icon elementor-social-icon-facebook elementor-repeater-item-42e63be" target="_blank">
+<span aria-hidden="true" class="elementor-icon elementor-social-icon elementor-social-icon-facebook elementor-repeater-item-42e63be">
 <span class="elementor-screen-only">Facebook</span>
-<i class="fab fa-facebook"></i> </a>
+<i class="fab fa-facebook"></i> </span>
 </span>
 <span class="elementor-grid-item" role="listitem">
-<a class="elementor-icon elementor-social-icon elementor-social-icon-twitter elementor-repeater-item-fac5120" target="_blank">
+<span aria-hidden="true" class="elementor-icon elementor-social-icon elementor-social-icon-twitter elementor-repeater-item-fac5120">
 <span class="elementor-screen-only">Twitter</span>
-<i class="fab fa-twitter"></i> </a>
+<i class="fab fa-twitter"></i> </span>
 </span>
 <span class="elementor-grid-item" role="listitem">
-<a class="elementor-icon elementor-social-icon elementor-social-icon-youtube elementor-repeater-item-9002345" target="_blank">
+<span aria-hidden="true" class="elementor-icon elementor-social-icon elementor-social-icon-youtube elementor-repeater-item-9002345">
 <span class="elementor-screen-only">Youtube</span>
-<i class="fab fa-youtube"></i> </a>
+<i class="fab fa-youtube"></i> </span>
 </span>
 </div>
 </div>
@@ -1197,13 +99,13 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <div class="elementor-widget-wrap elementor-element-populated">
 <div class="elementor-element elementor-element-0765a38 elementor-widget-mobile__width-auto elementor-widget elementor-widget-aux_logo" data-element_type="widget" data-id="0765a38" data-widget_type="aux_logo.default">
 <div class="elementor-widget-container">
-<div class="aux-widget-logo"><a class="aux-logo-anchor aux-has-logo" href="/" title="Solar Electric Wise"><img alt="LOGO-New-big-sun-600-120" class="aux-attachment aux-featured-image attachment-600x120 aux-attachment-id-33" data-original-w="600" data-ratio="5" height="120" src="/assets/vendor/wp-content/uploads/2021/03/LOGO-New-big-sun-600-120.png" width="600"/></a><a class="aux-logo-anchor aux-logo-sticky aux-logo-hidden aux-has-logo" href="/" title="Solar Electric Wise"><img alt="LOGO-New-big-sun-300-60" class="aux-attachment aux-featured-image attachment-300x60 aux-attachment-id-20" data-original-w="300" data-ratio="5" height="60" src="/assets/vendor/wp-content/uploads/2021/03/LOGO-New-big-sun-300-60.png" width="300"/></a><section class="aux-logo-text"><h3 class="site-title"><a href="/" title="Solar Electric Wise">Solar Electric Wise</a></h3><p class="site-description">The Best Solar in South Africa</p></section></div> </div>
+<div class="aux-widget-logo"><a class="aux-logo-anchor aux-has-logo" href="/" title="Solar Electric Wise"><img alt="SolarElectricWise" class="aux-attachment aux-featured-image attachment-600x120 aux-attachment-id-33" data-original-w="600" data-ratio="5" decoding="async" height="120" loading="eager" src="/assets/optimized/LOGO-New-big-sun-600-120-1600-6d6c5659dea1.webp" width="600"/></a><a class="aux-logo-anchor aux-logo-sticky aux-logo-hidden aux-has-logo" href="/" title="Solar Electric Wise"><img alt="SolarElectricWise" class="aux-attachment aux-featured-image attachment-300x60 aux-attachment-id-20" data-original-w="300" data-ratio="5" decoding="async" height="60" loading="eager" src="/assets/optimized/LOGO-New-big-sun-300-60-1600-97e967b057a0.webp" width="300"/></a><section class="aux-logo-text"><h3 class="site-title" role="presentation"><a href="/" title="Solar Electric Wise">Solar Electric Wise</a></h3><p class="site-description">The Best Solar in South Africa</p></section></div> </div>
 </div>
 <div class="elementor-element elementor-element-5e6ba33 elementor-widget-mobile__width-auto elementor-widget elementor-widget-aux_menu_box" data-element_type="widget" data-id="5e6ba33" data-widget_type="aux_menu_box.default">
 <div class="elementor-widget-container">
 <div class="aux-elementor-header-menu aux-nav-menu-element aux-nav-menu-element-5e6ba33"><div class="aux-burger-box" data-target-content=".elementor-element-5e6ba33 .aux-master-menu" data-target-panel="overlay"><div class="aux-burger aux-lite-small"><span class="mid-line"></span></div></div><!-- start master menu -->
 <nav class="menu-main-menu-container" id="master-menu-elementor-5e6ba33">
-<ul class="aux-master-menu aux-no-js aux-skin-classic aux-with-indicator aux-with-splitter aux-horizontal" data-switch-parent=".elementor-element-5e6ba33 .aux-fs-popup .aux-fs-menu" data-switch-type="toggle" data-switch-width="768" data-type="horizontal" id="menu-main-menu">
+<ul class="aux-master-menu aux-skin-classic aux-with-indicator aux-with-splitter aux-horizontal aux-wide" data-switch-parent=".elementor-element-5e6ba33 .aux-fs-popup .aux-fs-menu" data-switch-type="toggle" data-switch-width="768" data-type="horizontal" id="menu-main-menu">
 <!-- start single menu -->
 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-37 aux-menu-depth-0 aux-menu-root-1 aux-menu-item" id="menu-item-37">
 <a class="aux-item-content" href="/">
@@ -1247,7 +149,7 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <div class="elementor-widget-wrap elementor-element-populated">
 <div class="elementor-element elementor-element-aa65f12 elementor-widget-mobile__width-auto elementor-widget elementor-widget-aux_logo" data-element_type="widget" data-id="aa65f12" data-widget_type="aux_logo.default">
 <div class="elementor-widget-container">
-<div class="aux-widget-logo"><a class="aux-logo-anchor aux-has-logo" href="/" title="Solar Electric Wise"><img alt="LOGO-New-big-sun-600-120" class="aux-attachment aux-featured-image attachment-600x120 aux-attachment-id-33" data-original-w="600" data-ratio="5" height="120" src="/assets/vendor/wp-content/uploads/2021/03/LOGO-New-big-sun-600-120.png" width="600"/></a><a class="aux-logo-anchor aux-logo-sticky aux-logo-hidden aux-has-logo" href="/" title="Solar Electric Wise"><img alt="LOGO-New-big-sun-300-60" class="aux-attachment aux-featured-image attachment-300x60 aux-attachment-id-20" data-original-w="300" data-ratio="5" height="60" src="/assets/vendor/wp-content/uploads/2021/03/LOGO-New-big-sun-300-60.png" width="300"/></a><section class="aux-logo-text"><h3 class="site-title"><a href="/" title="Solar Electric Wise">Solar Electric Wise</a></h3><p class="site-description">The Best Solar in South Africa</p></section></div> </div>
+<div class="aux-widget-logo"><a class="aux-logo-anchor aux-has-logo" href="/" title="Solar Electric Wise"><img alt="SolarElectricWise" class="aux-attachment aux-featured-image attachment-600x120 aux-attachment-id-33" data-original-w="600" data-ratio="5" decoding="async" height="120" loading="eager" src="/assets/optimized/LOGO-New-big-sun-600-120-1600-6d6c5659dea1.webp" width="600"/></a><a class="aux-logo-anchor aux-logo-sticky aux-logo-hidden aux-has-logo" href="/" title="Solar Electric Wise"><img alt="SolarElectricWise" class="aux-attachment aux-featured-image attachment-300x60 aux-attachment-id-20" data-original-w="300" data-ratio="5" decoding="async" height="60" loading="eager" src="/assets/optimized/LOGO-New-big-sun-300-60-1600-97e967b057a0.webp" width="300"/></a><section class="aux-logo-text"><h3 class="site-title" role="presentation"><a href="/" title="Solar Electric Wise">Solar Electric Wise</a></h3><p class="site-description">The Best Solar in South Africa</p></section></div> </div>
 </div>
 </div>
 </div>
@@ -1261,7 +163,7 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <div class="elementor-widget-container">
 <div class="aux-elementor-header-menu aux-nav-menu-element aux-nav-menu-element-1184d67"><div class="aux-burger-box" data-target-content=".elementor-element-1184d67 .aux-master-menu" data-target-panel="overlay"><div class="aux-burger aux-thick-small"><span class="mid-line"></span></div></div><!-- start master menu -->
 <nav class="menu-main-menu-container" id="master-menu-elementor-1184d67">
-<ul class="aux-master-menu aux-no-js aux-skin-classic aux-with-indicator aux-horizontal" data-switch-parent=".elementor-element-1184d67 .aux-fs-popup .aux-fs-menu" data-switch-type="toggle" data-switch-width="9000" data-type="horizontal" id="menu-main-menu-1">
+<ul class="aux-master-menu aux-skin-classic aux-with-indicator aux-horizontal" data-switch-parent=".elementor-element-1184d67 .aux-fs-popup .aux-fs-menu" data-switch-type="toggle" data-switch-width="9000" data-type="horizontal" id="menu-main-menu-1">
 <!-- start single menu -->
 <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-37 aux-menu-depth-0 aux-menu-root-1 aux-menu-item">
 <a class="aux-item-content" href="/">
@@ -1308,7 +210,7 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <div class="elementor-widget-wrap elementor-element-populated">
 <div class="elementor-element elementor-element-17a799a1 elementor-widget elementor-widget-bdt-advanced-heading" data-element_type="widget" data-id="17a799a1" data-widget_type="bdt-advanced-heading.default">
 <div class="elementor-widget-container">
-<div class="bdt-ep-advanced-heading" data-settings='{"titleMultiColor":"no"}' id="17a799a1"><h1 class="bdt-ep-advanced-heading-title seo-primary-heading"><span class="bdt-ep-advanced-heading-main-title"><span class="bdt-ep-advanced-heading-main-title-inner">About Us</span></span></h1></div> </div>
+<div class="bdt-ep-advanced-heading" data-settings='{"titleMultiColor":"no"}' id="17a799a1"><h1 aria-level="1" class="bdt-ep-advanced-heading-title seo-primary-heading"><span class="bdt-ep-advanced-heading-main-title"><span class="bdt-ep-advanced-heading-main-title-inner">About Us</span></span></h1></div> </div>
 </div>
 <div class="elementor-element elementor-element-6923c54 elementor-widget elementor-widget-text-editor" data-element_type="widget" data-id="6923c54" data-widget_type="text-editor.default">
 <div class="elementor-widget-container">
@@ -1329,7 +231,7 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <div class="elementor-widget-wrap elementor-element-populated">
 <div class="elementor-element elementor-element-e1dc8ea elementor-widget elementor-widget-bdt-advanced-heading" data-element_type="widget" data-id="e1dc8ea" data-widget_type="bdt-advanced-heading.default">
 <div class="elementor-widget-container">
-<div class="bdt-ep-advanced-heading" data-settings='{"titleMultiColor":"no"}' id="e1dc8ea"><h1 class="bdt-ep-advanced-heading-title seo-primary-heading"><span class="bdt-ep-advanced-heading-main-title"><span class="bdt-ep-advanced-heading-main-title-inner">About Us</span></span></h1></div> </div>
+<div class="bdt-ep-advanced-heading" data-settings='{"titleMultiColor":"no"}' id="e1dc8ea"><h1 aria-level="1" class="bdt-ep-advanced-heading-title seo-primary-heading"><span class="bdt-ep-advanced-heading-main-title"><span class="bdt-ep-advanced-heading-main-title-inner">About Us</span></span></h1></div> </div>
 </div>
 <div class="elementor-element elementor-element-8cc3fb1 elementor-widget elementor-widget-text-editor" data-element_type="widget" data-id="8cc3fb1" data-widget_type="text-editor.default">
 <div class="elementor-widget-container">
@@ -1349,7 +251,7 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <div class="bdt-ep-advanced-heading-sub-title-content">
 										About Us									</div>
 </div>
-<h2 class="bdt-ep-advanced-heading-title"><span class="bdt-ep-advanced-heading-main-title"><span class="bdt-ep-advanced-heading-main-title-inner">SolarElectricWise</span></span></h2></div> </div>
+<h2 aria-level="2" class="bdt-ep-advanced-heading-title"><span class="bdt-ep-advanced-heading-main-title"><span class="bdt-ep-advanced-heading-main-title-inner">SolarElectricWise</span></span></h2></div> </div>
 </div>
 <div class="elementor-element elementor-element-59451383 elementor-widget elementor-widget-text-editor" data-element_type="widget" data-id="59451383" data-widget_type="text-editor.default">
 <div class="elementor-widget-container">
@@ -1372,8 +274,7 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 </div>
 <div class="elementor-element elementor-element-378410d1 elementor-widget elementor-widget-image" data-element_type="widget" data-id="378410d1" data-widget_type="image.default">
 <div class="elementor-widget-container">
-<a href="#">
-<img alt="" class="attachment-full size-full wp-image-883" decoding="async" fetchpriority="high" height="960" src="/assets/vendor/wp-content/uploads/2021/04/IMG-20200727-WA00001.jpg" width="1280"/> </a>
+<img alt="SolarElectricWise project photograph" class="attachment-full size-full wp-image-883" decoding="async" height="960" loading="lazy" src="/assets/optimized/IMG-20200727-WA00001-1600-cfdc6f49c30e.webp" width="1280"/>
 </div>
 </div>
 </div>
@@ -1390,7 +291,7 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <div class="bdt-ep-advanced-heading-sub-title-content">
 										About Us									</div>
 </div>
-<h2 class="bdt-ep-advanced-heading-title"><span class="bdt-ep-advanced-heading-main-title"><span class="bdt-ep-advanced-heading-main-title-inner">SolarElectricWise</span></span></h2></div> </div>
+<h2 aria-level="2" class="bdt-ep-advanced-heading-title"><span class="bdt-ep-advanced-heading-main-title"><span class="bdt-ep-advanced-heading-main-title-inner">SolarElectricWise</span></span></h2></div> </div>
 </div>
 <div class="elementor-element elementor-element-2c94e5f elementor-widget elementor-widget-text-editor" data-element_type="widget" data-id="2c94e5f" data-widget_type="text-editor.default">
 <div class="elementor-widget-container">
@@ -1410,8 +311,7 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <div class="elementor-widget-wrap elementor-element-populated">
 <div class="elementor-element elementor-element-7839f73 elementor-widget elementor-widget-image" data-element_type="widget" data-id="7839f73" data-widget_type="image.default">
 <div class="elementor-widget-container">
-<a href="#">
-<img alt="" class="attachment-full size-full wp-image-883" decoding="async" fetchpriority="high" height="960" src="/assets/vendor/wp-content/uploads/2021/04/IMG-20200727-WA00001.jpg" width="1280"/> </a>
+<img alt="SolarElectricWise project photograph" class="attachment-full size-full wp-image-883" decoding="async" height="960" loading="lazy" src="/assets/optimized/IMG-20200727-WA00001-1600-cfdc6f49c30e.webp" width="1280"/>
 </div>
 </div>
 </div>
@@ -1443,7 +343,7 @@ function auxinNS(n){for(var e=n.split("."),a=window,i="",r=e.length,t=0;r>t;t++)
 <div class="elementor-widget-container">
 <div class="bdt-ep-callout bdt-ep-callout-button-align-right bdt-grid bdt-grid-large bdt-flex-middle">
 <div class="bdt-width-expand bdt-first-column">
-<h3 class="bdt-ep-callout-title">
+<h3 aria-level="2" class="bdt-ep-callout-title">
 						Do You Want To Make The Step To Sustainable Electricity ?					</h3>
 <div class="bdt-ep-callout-description">
 						In South Africa, we receive abundant sunlight every day, and the vast majority of us are not making the best use of it. Why waste that energy? We at SolarElectricWise can help you make full use of this sunlight with our solar PV installations.
@@ -1475,7 +375,7 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 <div class="elementor-widget-container">
 <div class="bdt-ep-callout bdt-ep-callout-button-align-center">
 <div class="bdt-width-expand bdt-first-column">
-<h3 class="bdt-ep-callout-title">
+<h3 aria-level="2" class="bdt-ep-callout-title">
 						Do You Want To Make The Step To Sustainable Electricity ?					</h3>
 <div class="bdt-ep-callout-description">
 						In South Africa, we receive abundant sunlight every day, and the vast majority of us are not making the best use of it. Why waste that energy? We at SolarElectricWise can help you make full use of this sunlight with our solar PV installations.
@@ -1507,8 +407,7 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 <div class="elementor-element elementor-element-f59170e elementor-widget elementor-widget-aux_modern_heading" data-element_type="widget" data-id="f59170e" data-widget_type="aux_modern_heading.default">
 <div class="elementor-widget-container">
 <section class="aux-widget-modern-heading">
-<div class="aux-widget-inner"><h6 class="aux-modern-heading-primary">
-</h6><h3 class="aux-modern-heading-secondary"><span class="aux-head-before">Looking For A Quality And Affordable Solar System  For Your </span><span class="aux-head-highlight">Home or Business ?</span></h3></div>
+<div class="aux-widget-inner"><h3 aria-level="2" class="aux-modern-heading-secondary"><span class="aux-head-before">Looking For A Quality And Affordable Solar System  For Your </span><span class="aux-head-highlight">Home or Business ?</span></h3></div>
 </section> </div>
 </div>
 <div class="elementor-element elementor-element-c59874d elementor-widget elementor-widget-aux_button" data-element_type="widget" data-id="c59874d" data-widget_type="aux_button.default">
@@ -1520,7 +419,7 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 <section class="widget-container aux-widget-image aux-alignnone aux-parent-au1a2232c8">
 <div class="aux-media-hint-frame">
 <div class="aux-media-image">
-<img alt="Lightbulb-600x354" class="aux-attachment aux-featured-image aux-attachment-id-67 aux-img-dynamic-dropshadow" data-original-w="600" data-ratio="1.69" height="354" src="/assets/vendor/wp-content/uploads/2021/03/Lightbulb-600x354-1.png" width="600"/>
+<img alt="Lightbulb-600x354" class="aux-attachment aux-featured-image aux-attachment-id-67 aux-img-dynamic-dropshadow" data-original-w="600" data-ratio="1.69" decoding="async" height="354" src="/assets/optimized/Lightbulb-600x354-1-1600-3d5d5bc2fc01.webp" width="600"/>
 </div>
 </div>
 </section><!-- widget-container --> </div>
@@ -1536,8 +435,7 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 <div class="elementor-element elementor-element-78d8ff2 elementor-widget elementor-widget-aux_modern_heading" data-element_type="widget" data-id="78d8ff2" data-widget_type="aux_modern_heading.default">
 <div class="elementor-widget-container">
 <section class="aux-widget-modern-heading">
-<div class="aux-widget-inner"><h6 class="aux-modern-heading-primary">
-</h6><h3 class="aux-modern-heading-secondary"><span class="aux-head-before">Looking For A Quality And Affordable Solar System  For Your </span><span class="aux-head-highlight">Home or Business ?</span></h3></div>
+<div class="aux-widget-inner"><h3 aria-level="2" class="aux-modern-heading-secondary"><span class="aux-head-before">Looking For A Quality And Affordable Solar System  For Your </span><span class="aux-head-highlight">Home or Business ?</span></h3></div>
 </section> </div>
 </div>
 <div class="elementor-element elementor-element-c72c0cf elementor-widget elementor-widget-aux_button" data-element_type="widget" data-id="c72c0cf" data-widget_type="aux_button.default">
@@ -1549,7 +447,7 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 <section class="widget-container aux-widget-image aux-alignnone aux-parent-au444f8682">
 <div class="aux-media-hint-frame">
 <div class="aux-media-image">
-<img alt="Lightbulb-600x354" class="aux-attachment aux-featured-image aux-attachment-id-67 aux-img-dynamic-dropshadow aux-preload aux-has-preview" data-original-w="600" data-ratio="1.69" data-src="/assets/vendor/wp-content/uploads/2021/03/Lightbulb-600x354-1.png" height="354" src="/assets/vendor/wp-content/uploads/2021/03/Lightbulb-600x354-1-40x24.png" width="600"/>
+<img alt="Lightbulb-600x354" class="aux-attachment aux-featured-image aux-attachment-id-67 aux-img-dynamic-dropshadow aux-preload aux-has-preview" data-original-w="600" data-ratio="1.69" data-src="/assets/optimized/Lightbulb-600x354-1-1600-3d5d5bc2fc01.webp" decoding="async" height="354" src="/assets/optimized/Lightbulb-600x354-1-1600-3d5d5bc2fc01.webp" width="600"/>
 </div>
 </div>
 </section><!-- widget-container --> </div>
@@ -1564,13 +462,13 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 <div class="elementor-widget-wrap elementor-element-populated">
 <div class="elementor-element elementor-element-8eec4d1 elementor-widget elementor-widget-heading" data-element_type="widget" data-id="8eec4d1" data-widget_type="heading.default">
 <div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">About Us
+<h2 aria-level="2" class="elementor-heading-title elementor-size-default">About Us
 </h2> </div>
 </div>
 <div class="elementor-element elementor-element-8f0d21e elementor-widget elementor-widget-theme-site-logo elementor-widget-image" data-element_type="widget" data-id="8f0d21e" data-widget_type="theme-site-logo.default">
 <div class="elementor-widget-container">
-<a href="">
-<img alt="SolarElectricWise" class="attachment-full size-full wp-image-33" height="120" src="/assets/vendor/wp-content/uploads/2021/03/LOGO-New-big-sun-600-120.png" width="600"/> </a>
+<span aria-hidden="true" href="">
+<img alt="SolarElectricWise" class="attachment-full size-full wp-image-33" decoding="async" height="120" src="/assets/optimized/LOGO-New-big-sun-600-120-1600-6d6c5659dea1.webp" width="600"/> </span>
 </div>
 </div>
 <div class="elementor-element elementor-element-e195a53 elementor-widget elementor-widget-text-editor" data-element_type="widget" data-id="e195a53" data-widget_type="text-editor.default">
@@ -1583,7 +481,7 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 <div class="elementor-widget-wrap elementor-element-populated">
 <div class="elementor-element elementor-element-ad86e15 elementor-widget elementor-widget-heading" data-element_type="widget" data-id="ad86e15" data-widget_type="heading.default">
 <div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">Contact Us
+<h2 aria-level="2" class="elementor-heading-title elementor-size-default">Contact Us
 </h2> </div>
 </div>
 <div class="elementor-element elementor-element-41864d5 elementor-widget elementor-widget-aux_icon_list" data-element_type="widget" data-id="41864d5" data-widget_type="aux_icon_list.default">
@@ -1597,12 +495,12 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 <div class="elementor-element elementor-element-b8e3d73 elementor-widget elementor-widget-aux_modern_heading" data-element_type="widget" data-id="b8e3d73" data-widget_type="aux_modern_heading.default">
 <div class="elementor-widget-container">
 <section class="aux-widget-modern-heading">
-<div class="aux-widget-inner"><h6 class="aux-modern-heading-primary">Accreditation  </h6></div>
+<div class="aux-widget-inner"><h6 aria-level="2" class="aux-modern-heading-primary">Accreditation  </h6></div>
 </section> </div>
 </div>
 <div class="elementor-element elementor-element-d1ce229 elementor-widget elementor-widget-image" data-element_type="widget" data-id="d1ce229" data-widget_type="image.default">
 <div class="elementor-widget-container">
-<img alt="South African Photovoltaic Industry Association logo" class="attachment-large size-large wp-image-70" height="94" src="/assets/vendor/wp-content/uploads/2021/03/SAPVIA.jpg" width="250"/> </div>
+<img alt="South African Photovoltaic Industry Association logo" class="attachment-large size-large wp-image-70" decoding="async" height="94" src="/assets/optimized/SAPVIA-1600-aa3dafde68fe.webp" width="250"/> </div>
 </div>
 </div>
 </div>
@@ -1614,7 +512,7 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 <div class="elementor-widget-wrap elementor-element-populated">
 <div class="elementor-element elementor-element-5aef0d3 elementor-widget elementor-widget-heading" data-element_type="widget" data-id="5aef0d3" data-widget_type="heading.default">
 <div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">Navigation </h2> </div>
+<h2 aria-level="2" class="elementor-heading-title elementor-size-default">Navigation </h2> </div>
 </div>
 <div class="elementor-element elementor-element-e1eca77 elementor-nav-menu--dropdown-tablet elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu" data-element_type="widget" data-id="e1eca77" data-settings='{"layout":"vertical","submenu_icon":{"value":"&lt;i class=\"fas fa-caret-down\"&gt;&lt;\/i&gt;","library":"fa-solid"},"toggle":"burger"}' data-widget_type="nav-menu.default">
 <div class="elementor-widget-container">
@@ -1650,7 +548,7 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 <div class="elementor-widget-wrap elementor-element-populated">
 <div class="elementor-element elementor-element-2fedfe0 elementor-widget elementor-widget-heading" data-element_type="widget" data-id="2fedfe0" data-widget_type="heading.default">
 <div class="elementor-widget-container">
-<h2 class="elementor-heading-title elementor-size-default">Contact Us
+<h2 aria-level="2" class="elementor-heading-title elementor-size-default">Contact Us
 </h2> </div>
 </div>
 <div class="elementor-element elementor-element-9aa6528 elementor-widget elementor-widget-aux_icon_list" data-element_type="widget" data-id="9aa6528" data-widget_type="aux_icon_list.default">
@@ -1668,12 +566,12 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 <div class="elementor-element elementor-element-0f4075b elementor-widget elementor-widget-aux_modern_heading" data-element_type="widget" data-id="0f4075b" data-widget_type="aux_modern_heading.default">
 <div class="elementor-widget-container">
 <section class="aux-widget-modern-heading">
-<div class="aux-widget-inner"><h6 class="aux-modern-heading-primary">Accreditation  </h6></div>
+<div class="aux-widget-inner"><h6 aria-level="2" class="aux-modern-heading-primary">Accreditation  </h6></div>
 </section> </div>
 </div>
 <div class="elementor-element elementor-element-3edce2a elementor-widget elementor-widget-image" data-element_type="widget" data-id="3edce2a" data-widget_type="image.default">
 <div class="elementor-widget-container">
-<img alt="South African Photovoltaic Industry Association logo" class="attachment-large size-large wp-image-70" height="94" src="/assets/vendor/wp-content/uploads/2021/03/SAPVIA.jpg" width="250"/> </div>
+<img alt="South African Photovoltaic Industry Association logo" class="attachment-large size-large wp-image-70" decoding="async" height="94" src="/assets/optimized/SAPVIA-1600-aa3dafde68fe.webp" width="250"/> </div>
 </div>
 </div>
 </div>
@@ -1771,80 +669,7 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 <div class="aux-scroll-top"></div>
 </div>
 <!-- outputs by wp_footer -->
-<div id="wa"></div> <script id="wccp_pro_alert_message">
-	window.addEventListener('DOMContentLoaded', function() {}); //This line to stop JS deffer function in wp-rockt pluign
-	
-	window.addEventListener('load', function (){
-		// Create the first div element with the "oncontextmenu" attribute
-		const wccp_pro_mask = document.createElement('div');
-		wccp_pro_mask.setAttribute('oncontextmenu', 'return false;');
-		wccp_pro_mask.setAttribute('id', 'wccp_pro_mask');
-
-		// Create the second div element with the "msgmsg-box-wpcp hideme" classes
-		const wpcp_error_message = document.createElement('div');
-		wpcp_error_message.setAttribute('id', 'wpcp-error-message');
-		wpcp_error_message.setAttribute('class', 'msgmsg-box-wpcp hideme');
-
-		// Add a span element with the "error: " text inside the second div
-		const error_span = document.createElement('span');
-		error_span.innerText = 'error: ';
-		wpcp_error_message.appendChild(error_span);
-
-		// Add the error message text inside the second div
-		const error_text = document.createTextNode('');
-		wpcp_error_message.appendChild(error_text);
-
-		// Add the div elements to the document body
-		document.body.appendChild(wccp_pro_mask);
-		document.body.appendChild(wpcp_error_message);
-	});
-
-	var timeout_result;
-	function show_wccp_pro_message(smessage="", style="")
-	{
-		wccp_pro_log_to_console_if_allowed("function", "show_wccp_pro_message" + smessage);
-				
-		timeout = 3000;
-		
-		if(style == "") style = "warning-wpcp";
-		
-		if (smessage !== "" && timeout!=0)
-		{
-			var smessage_text = smessage;
-			jquery_fadeTo();
-			document.getElementById("wpcp-error-message").innerHTML = smessage_text;
-			document.getElementById("wpcp-error-message").className = "msgmsg-box-wpcp showme " + style;
-			clearTimeout(timeout_result);
-			timeout_result = setTimeout(hide_message, timeout);
-		}
-		else
-		{
-			clearTimeout(timeout_result);
-			timeout_result = setTimeout(hide_message, timeout);
-		}
-	}
-	function hide_message()
-	{
-		jquery_fadeOut();
-		document.getElementById("wpcp-error-message").className = "msgmsg-box-wpcp warning-wpcp hideme";
-	}
-	function jquery_fadeTo()
-	{
-		try {
-			jQuery("#wccp_pro_mask").fadeTo("slow", 0.3);
-		}
-		catch(err) {
-			//alert(err.message);
-			}
-	}
-	function jquery_fadeOut()
-	{
-		try {
-			jQuery("#wccp_pro_mask").fadeOut( "slow" );
-		}
-		catch(err) {}
-	}
-	</script>
+<div id="wa"></div>
 <style>
 	#wccp_pro_mask
 	{
@@ -1907,84 +732,15 @@ And the best part? Eskom load shedding will become a thing of the past, as will 
 		box-shadow: 0px 0px 34px 2px #adc;
 	}
     </style>
-<script>
-				const lazyloadRunObserver = () => {
-					const lazyloadBackgrounds = document.querySelectorAll( `.e-con.e-parent:not(.e-lazyloaded)` );
-					const lazyloadBackgroundObserver = new IntersectionObserver( ( entries ) => {
-						entries.forEach( ( entry ) => {
-							if ( entry.isIntersecting ) {
-								let lazyloadBackground = entry.target;
-								if( lazyloadBackground ) {
-									lazyloadBackground.classList.add( 'e-lazyloaded' );
-								}
-								lazyloadBackgroundObserver.unobserve( entry.target );
-							}
-						});
-					}, { rootMargin: '200px 0px 200px 0px' } );
-					lazyloadBackgrounds.forEach( ( lazyloadBackground ) => {
-						lazyloadBackgroundObserver.observe( lazyloadBackground );
-					} );
-				};
-				const events = [
-					'DOMContentLoaded',
-					'elementor/lazyload/observe',
-				];
-				events.forEach( ( event ) => {
-					document.addEventListener( event, lazyloadRunObserver );
-				} );
-			</script>
-<script data-cfasync="false" id="imagesloaded-js" src="/assets/vendor/wp-includes/js/imagesloaded.min.js?ver=5.0.0"></script>
-<script data-cfasync="false" id="masonry-js" src="/assets/vendor/wp-includes/js/masonry.min.js?ver=4.2.2"></script>
-<script id="auxin-plugins-js" src="/assets/vendor/wp-content/themes/phlox-pro/js/plugins.min.js?ver=5.17.6"></script>
-<script id="auxin-scripts-js" src="/assets/vendor/wp-content/themes/phlox-pro/js/scripts.min.js?ver=5.17.6"></script>
-<script id="auxin-elementor-widgets-js" src="/assets/vendor/wp-content/plugins/auxin-elements/admin/assets/js/elementor/widgets.js?ver=2.17.5"></script>
-<script id="auxin-elements-plugins-js" src="/assets/vendor/wp-content/plugins/auxin-elements/public/assets/js/plugins.min.js?ver=2.17.5"></script>
-<script id="auxin-elements-scripts-js" src="/assets/vendor/wp-content/plugins/auxin-elements/public/assets/js/scripts.js?ver=2.17.5"></script>
-<script id="jquery-numerator-js" src="/assets/vendor/wp-content/plugins/elementor/assets/lib/jquery-numerator/jquery-numerator.min.js?ver=0.2.1"></script>
-<script id="auxin-pro-tools-pro-js" src="/assets/vendor/wp-content/plugins/auxin-pro-tools/public/assets/js/pro-tools.js?ver=1.9.5"></script>
-<script id="nta-wa-libs-js" src="/assets/vendor/wp-content/plugins/whatsapp-for-wordpress/assets/dist/js/njt-whatsapp.js?ver=3.3.3"></script>
+<script defer="" id="nta-wa-libs-js" src="/assets/optimized/njt-whatsapp-66b25d8664e1.js"></script>
 <script id="nta-js-global-js-extra">
 var njt_wa_global = {"ajax_url":"\/wp-admin\/admin-ajax.php","nonce":"12ff0699ea","defaultAvatarSVG":"<svg width=\"48px\" height=\"48px\" class=\"nta-whatsapp-default-avatar\" version=\"1.1\" id=\"Layer_1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\" x=\"0px\" y=\"0px\"\n            viewBox=\"0 0 512 512\" style=\"enable-background:new 0 0 512 512;\" xml:space=\"preserve\">\n            <path style=\"fill:#EDEDED;\" d=\"M0,512l35.31-128C12.359,344.276,0,300.138,0,254.234C0,114.759,114.759,0,255.117,0\n            S512,114.759,512,254.234S395.476,512,255.117,512c-44.138,0-86.51-14.124-124.469-35.31L0,512z\"\/>\n            <path style=\"fill:#55CD6C;\" d=\"M137.71,430.786l7.945,4.414c32.662,20.303,70.621,32.662,110.345,32.662\n            c115.641,0,211.862-96.221,211.862-213.628S371.641,44.138,255.117,44.138S44.138,137.71,44.138,254.234\n            c0,40.607,11.476,80.331,32.662,113.876l5.297,7.945l-20.303,74.152L137.71,430.786z\"\/>\n            <path style=\"fill:#FEFEFE;\" d=\"M187.145,135.945l-16.772-0.883c-5.297,0-10.593,1.766-14.124,5.297\n            c-7.945,7.062-21.186,20.303-24.717,37.959c-6.179,26.483,3.531,58.262,26.483,90.041s67.09,82.979,144.772,105.048\n            c24.717,7.062,44.138,2.648,60.028-7.062c12.359-7.945,20.303-20.303,22.952-33.545l2.648-12.359\n            c0.883-3.531-0.883-7.945-4.414-9.71l-55.614-25.6c-3.531-1.766-7.945-0.883-10.593,2.648l-22.069,28.248\n            c-1.766,1.766-4.414,2.648-7.062,1.766c-15.007-5.297-65.324-26.483-92.69-79.448c-0.883-2.648-0.883-5.297,0.883-7.062\n            l21.186-23.834c1.766-2.648,2.648-6.179,1.766-8.828l-25.6-57.379C193.324,138.593,190.676,135.945,187.145,135.945\"\/>\n        <\/svg>","defaultAvatarUrl":"\/assets\/vendor\/wp-content\/plugins\/whatsapp-for-wordpress\/assets\/img\/whatsapp_logo.svg","timezone":"+00:00","i18n":{"online":"Online","offline":"Offline"},"urlSettings":{"onDesktop":"api","onMobile":"api","openInNewTab":"ON"}};
 </script>
-<script id="nta-js-global-js" src="/assets/vendor/wp-content/plugins/whatsapp-for-wordpress/assets/js/whatsapp-button.js?ver=3.3.3"></script>
-<script id="morphext-js" src="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/vendor/js/morphext.min.js?ver=2.4.7"></script>
-<script id="typed-js" src="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/vendor/js/typed.min.js"></script>
-<script id="gsap-js" src="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/vendor/js/gsap.min.js?ver=3.12.2"></script>
-<script id="split-text-js-js" src="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/vendor/js/SplitText.min.js?ver=3.9.1"></script>
-<script id="bdt-uikit-js-extra">
-var element_pack_ajax_login_config = {"ajaxurl":"\/wp-admin\/admin-ajax.php","language":"en","loadingmessage":"Sending user info, please wait...","unknownerror":"Unknown error, make sure access is correct!"};
-var ElementPackConfig = {"ajaxurl":"\/wp-admin\/admin-ajax.php","nonce":"f418c33bca","data_table":{"language":{"sLengthMenu":"Show _MENU_ Entries","sInfo":"Showing _START_ to _END_ of _TOTAL_ entries","sSearch":"Search :","sZeroRecords":"No matching records found","oPaginate":{"sPrevious":"Previous","sNext":"Next"}}},"contact_form":{"sending_msg":"Sending message please wait...","captcha_nd":"Invisible captcha not defined!","captcha_nr":"Could not get invisible captcha response!"},"mailchimp":{"subscribing":"Subscribing you please wait..."},"search":{"more_result":"More Results","search_result":"SEARCH RESULT","not_found":"not found"},"elements_data":{"sections":[],"columns":[],"widgets":[]}};
-</script>
-<script id="bdt-uikit-js" src="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/js/bdt-uikit.min.js?ver=3.17.11"></script>
-<script id="elementor-webpack-runtime-js" src="/assets/vendor/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.30.2"></script>
-<script id="elementor-frontend-modules-js" src="/assets/vendor/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.30.2"></script>
-<script data-cfasync="false" id="jquery-ui-core-js" src="/assets/vendor/wp-includes/js/jquery/ui/core.min.js?ver=1.13.3"></script>
-<script id="elementor-frontend-js-before">
-var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Share on Facebook","shareOnTwitter":"Share on Twitter","pinIt":"Pin it","download":"Download","downloadImage":"Download image","fullscreen":"Fullscreen","zoom":"Zoom","share":"Share","playVideo":"Play Video","previous":"Previous","next":"Next","close":"Close","a11yCarouselPrevSlideMessage":"Previous slide","a11yCarouselNextSlideMessage":"Next slide","a11yCarouselFirstSlideMessage":"This is the first slide","a11yCarouselLastSlideMessage":"This is the last slide","a11yCarouselPaginationBulletMessage":"Go to slide"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"Mobile Portrait","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Mobile Landscape","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet Portrait","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet Landscape","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Laptop","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Widescreen","value":2400,"default_value":2400,"direction":"min","is_enabled":false}},"hasCustomBreakpoints":false},"version":"3.30.2","is_static":false,"experimentalFeatures":{"additional_custom_breakpoints":true,"theme_builder_v2":true,"home_screen":true,"global_classes_should_enforce_capabilities":true,"cloud-library":true,"e_opt_in_v4_page":true},"urls":{"assets":"\/assets\/vendor\/wp-content\/plugins\/elementor\/assets\/","ajaxurl":"\/wp-admin\/admin-ajax.php","uploadUrl":"\/assets\/vendor\/wp-content\/uploads"},"nonces":{"floatingButtonsClickTracking":"c85682fa67"},"swiperClass":"swiper","settings":{"page":[],"editorPreferences":[]},"kit":{"active_breakpoints":["viewport_mobile","viewport_tablet"],"global_image_lightbox":"yes","lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description"},"post":{"id":9,"title":"About%20Us%20%E2%80%93%20Solar%20Electric%20Wise","excerpt":"","featuredImage":false}};
-</script>
-<script id="elementor-frontend-js" src="/assets/vendor/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.30.2"></script>
-<script id="ep-animated-heading-js" src="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/js/modules/ep-animated-heading.min.js?ver=7.12.2"></script>
-<script id="smartmenus-js" src="/assets/vendor/wp-content/plugins/elementor-pro/assets/lib/smartmenus/jquery.smartmenus.min.js?ver=1.2.1"></script>
-<script id="ep-advanced-heading-js" src="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/js/modules/ep-advanced-heading.min.js?ver=7.12.2"></script>
-<script data-wp-strategy="defer" defer="" id="litespeed-cache-js" src="/assets/vendor/wp-content/plugins/litespeed-cache/assets/js/instant_click.min.js?ver=7.9"></script>
-<script id="auxin-custom-js-js" src="/assets/vendor/wp-content/uploads/phlox-pro/custom.js?ver=1.9"></script>
 <script id="nta-js-popup-js-extra">
 var njt_wa = {"gdprStatus":"","accounts":[{"accountId":1296,"accountName":"Office","avatar":"","number":"+27835719191","title":"Office","predefinedText":"","willBeBackText":"I will be back in [njwa_time_work]","dayOffsText":"Working Hours Only","isAlwaysAvailable":"ON","daysOfWeekWorking":{"sunday":{"isWorkingOnDay":"OFF","workHours":[{"startTime":"08:00","endTime":"17:30"}]},"monday":{"isWorkingOnDay":"ON","workHours":[{"startTime":"08:00","endTime":"17:00"}]},"tuesday":{"isWorkingOnDay":"ON","workHours":[{"startTime":"08:00","endTime":"17:00"}]},"wednesday":{"isWorkingOnDay":"ON","workHours":[{"startTime":"08:00","endTime":"17:00"}]},"thursday":{"isWorkingOnDay":"ON","workHours":[{"startTime":"08:00","endTime":"17:00"}]},"friday":{"isWorkingOnDay":"ON","workHours":[{"startTime":"08:00","endTime":"17:00"}]},"saturday":{"isWorkingOnDay":"OFF","workHours":[{"startTime":"08:00","endTime":"17:00"}]}}},{"accountId":1297,"accountName":"Christine","avatar":"","number":"+27834543577","title":"Christine","predefinedText":"","willBeBackText":"I will be back in [njwa_time_work]","dayOffsText":"I will be back soon","isAlwaysAvailable":"ON","daysOfWeekWorking":{"sunday":{"isWorkingOnDay":"OFF","workHours":[{"startTime":"08:00","endTime":"17:30"}]},"monday":{"isWorkingOnDay":"OFF","workHours":[{"startTime":"08:00","endTime":"17:30"}]},"tuesday":{"isWorkingOnDay":"OFF","workHours":[{"startTime":"08:00","endTime":"17:30"}]},"wednesday":{"isWorkingOnDay":"OFF","workHours":[{"startTime":"08:00","endTime":"17:30"}]},"thursday":{"isWorkingOnDay":"OFF","workHours":[{"startTime":"08:00","endTime":"17:30"}]},"friday":{"isWorkingOnDay":"OFF","workHours":[{"startTime":"08:00","endTime":"17:30"}]},"saturday":{"isWorkingOnDay":"OFF","workHours":[{"startTime":"08:00","endTime":"17:30"}]}}}],"options":{"display":{"displayCondition":"excludePages","includePages":[],"excludePages":[],"includePosts":[],"showOnDesktop":"ON","showOnMobile":"ON","time_symbols":"h:m"},"styles":{"title":"Start a Conversation","responseText":"The team typically replies in a few minutes.","description":"Hi! Click one of our member below to chat on <strong>WhatsApp<\/strong>","backgroundColor":"#2db742","textColor":"#fff","scrollHeight":500,"isShowScroll":"OFF","isShowResponseText":"ON","isShowPoweredBy":"ON","btnLabel":"Need Help? <strong>Chat with us<\/strong>","btnLabelWidth":156,"btnPosition":"right","btnLeftDistance":30,"btnRightDistance":30,"btnBottomDistance":30,"isShowBtnLabel":"ON","isShowGDPR":"OFF","gdprContent":"Please accept our <a href=\"https:\/\/ninjateam.org\/privacy-policy\/\">privacy policy<\/a> first to start a conversation.","widgetType":"expandable"},"analytics":{"enabledGoogle":"OFF","enabledFacebook":"OFF","enabledGoogleGA4":"OFF"}}};
 </script>
-<script id="nta-js-popup-js" src="/assets/vendor/wp-content/plugins/whatsapp-for-wordpress/assets/js/whatsapp-popup.js?ver=6.8.11"></script>
-<script id="element-pack-helper-js" src="/assets/vendor/wp-content/plugins/bdthemes-element-pack/assets/js/common/helper.min.js?ver=7.12.2"></script>
-<script id="elementor-pro-webpack-runtime-js" src="/assets/vendor/wp-content/plugins/elementor-pro/assets/js/webpack-pro.runtime.min.js?ver=3.30.0"></script>
-<script data-cfasync="false" id="wp-hooks-js" src="/assets/vendor/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6"></script>
-<script data-cfasync="false" id="wp-i18n-js" src="/assets/vendor/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6"></script>
-<script id="wp-i18n-js-after">
-wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
-</script>
-<script id="elementor-pro-frontend-js-before">
-var ElementorProFrontendConfig = {"ajaxurl":"\/wp-admin\/admin-ajax.php","nonce":"0b12fdcb95","urls":{"assets":"\/assets\/vendor\/wp-content\/plugins\/elementor-pro\/assets\/","rest":"\/wp-json\/"},"settings":{"lazy_load_background_images":true},"popup":{"hasPopUps":false},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"},"x-twitter":{"title":"X"},"threads":{"title":"Threads"}},"facebook_sdk":{"lang":"en_US","app_id":""},"lottie":{"defaultAnimationUrl":"\/assets\/vendor\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"}};
-</script>
-<script id="elementor-pro-frontend-js" src="/assets/vendor/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=3.30.0"></script>
-<script id="pro-elements-handlers-js" src="/assets/vendor/wp-content/plugins/elementor-pro/assets/js/elements-handlers.min.js?ver=3.30.0"></script>
+<script defer="" id="nta-js-popup-js" src="/assets/optimized/whatsapp-popup-e853e3839295.js"></script>
 <!-- end wp_footer -->
-<script src="/assets/runtime/static-site.js"></script></body>
+<script defer="" src="/assets/optimized/static-site-7d2895326b55.js"></script><script defer="" src="/assets/optimized/performance-25b0843dfdc7.js"></script></body>
 </html>
 <!-- Page cached by LiteSpeed Cache 7.9 on 2026-10-13 21:26:15 -->
